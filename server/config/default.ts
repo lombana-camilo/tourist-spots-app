@@ -8,4 +8,5 @@ export default {
   port: 4000,
   API_KEY,
   API_HOST,
+   originUrl:"http://localhost:5173"
 };
