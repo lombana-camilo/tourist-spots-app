@@ -65,6 +65,7 @@ __POST /users/login__
 - [ ] Set User CRUD endpoints, controller and services
 - [ ] Create Session model, zodSchema
 - [ ] Set Session CRUD endpoints, controller and services
+- [x] Validate requests middleware
 - [ ] Deserialize user Middleware - Tokens and Cookies
 ### `Spot Model`
 - [ ] Create Spot model, zodSchema

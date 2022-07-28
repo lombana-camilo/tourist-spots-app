@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { getSpotsHandler } from "./../controllers/spot.controller";
 
 const spots = Router()
 
-spots.get("/",(req,res)=>{
-   res.send("Spots page")
-})
+spots.get("/",getSpotsHandler)
 
 export default spots
