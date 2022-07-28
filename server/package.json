@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts"
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "seed": "ts-node-dev --respawn src/seeds/index.ts"
   },
   "author": "Camilo Lombana",
   "license": "ISC",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@typegoose/typegoose": "^9.10.1",
+    "axios": "^0.27.2",
     "config": "^3.3.7",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

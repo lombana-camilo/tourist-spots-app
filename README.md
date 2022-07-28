@@ -68,6 +68,7 @@ __POST /users/login__
 - [ ] Deserialize user Middleware - Tokens and Cookies
 ### `Spot Model`
 - [ ] Create Spot model, zodSchema
+- [x] Seed model with Api data
 - [ ] Set Spot CRUD endpoints, controller and services
 
 ### `Frontend`
