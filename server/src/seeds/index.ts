@@ -12,12 +12,6 @@ const seedDb = async () => {
     console.log("Cleaning previous Spots");
 
     //Seed
-    const newSpot = new SpotModel({
-      title: "Cool Spot",
-      description: "Nice spot to drink tequila",
-      location: "Pasto",
-    });
-
       const seedData = await filterArray()
       await SpotModel.insertMany(seedData)
 

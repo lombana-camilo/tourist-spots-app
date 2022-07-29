@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import axios from "axios";
 import { useFetchSpotsQuery } from "../store/api/apiSlice";
 
@@ -11,8 +11,11 @@ export const Spots = () => {
     <div>
       <Typography variant="h1">Lists of Spots</Typography>
       {data.map((spot) => (
-        <h2>{spot.title}</h2>
+        <div key={spot._id}>
+          <h2>{spot.title}</h2>
+        </div>
       ))}
+           <Button variant="outlined">button</Button>
     </div>
   ) : (
     <p>Failed to load</p>
