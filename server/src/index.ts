@@ -1,7 +1,6 @@
 import server from "./server";
 import dbConnection from "./db";
 import config from "config";
-import SpotModel, { Spot } from "./models/spot.model";
 
 const port = config.get<number>("port");
 
@@ -14,16 +13,6 @@ async function startServer() {
   } catch (e) {
     console.log(e);
   }
-
-  //Seed
-
-  const newSpot = new SpotModel({
-    title: "Cool Spot",
-    description: "Nice spot to drink tequila",
-    location: "Pasto",
-  } );
-  await newSpot.save();
-
 }
 
 startServer();

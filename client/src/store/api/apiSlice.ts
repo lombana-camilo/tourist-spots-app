@@ -7,8 +7,6 @@ interface SpotDocument {
   _id: string;
 }
 
-console.log("urlOrigin",import.meta.env.VITE_APP_SERVER_ENDPOINT)
-console.log("urlOrigin",import.meta.env.BASE_URL)
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -19,7 +17,17 @@ export const apiSlice = createApi({
     fetchSpots: builder.query<SpotDocument[],void>({
       query: () => `/spots`,
     }),
+    findSpot: builder.query<SpotDocument,string | undefined>({
+      query: (id) => `/spots/${id}`,
+    }),
+      createSpot: builder.mutation({
+         query: (data)=>({
+            url:`/spots`,
+            method:"POST",
+            body:data
+         })
+      })
   }),
 });
 
-export const {useFetchSpotsQuery} = apiSlice
+export const {useFetchSpotsQuery,useFindSpotQuery,useCreateSpotMutation} = apiSlice

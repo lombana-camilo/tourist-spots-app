@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { FindSpotType } from "./../schemas/spot.schema";
-import { findSpot, getSpots } from "./../services/spot.service";
+import { CreateSpotType, FindSpotType } from "./../schemas/spot.schema";
+import { createSpot, findSpot, getSpots } from "./../services/spot.service";
 
 export const getSpotsHandler = async (_: Request, res: Response) => {
   const spots = await getSpots();
@@ -21,4 +21,12 @@ export const findSpotHandler = async (
   }
 
   return res.send(spot);
+};
+
+export const createSpotHandler = async (
+  req: Request<{}, {}, CreateSpotType["body"]>,
+  res: Response
+) => {
+  const newSpot = await createSpot(req.body);
+  return res.send(newSpot);
 };

@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { Layout } from "./components/layout/Layout";
-import { Spots } from "./components/Spots";
-import { SpotDetails } from "./components/SpotDetails";
+import { Spots } from "./components/spots/Spots";
+import { SpotDetails } from "./components/spots/SpotDetails";
+import { CreateSpotForm } from "./components/spots/CreateSpotForm";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/spots" element={<Spots />} />
         <Route path="/spots/:id" element={<SpotDetails />} />
+        <Route path="/spots/new" element={<CreateSpotForm />} />
 
         {/* Protected Routes */}
 

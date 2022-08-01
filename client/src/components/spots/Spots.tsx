@@ -1,6 +1,6 @@
 import { Typography, Button } from "@mui/material";
-import axios from "axios";
-import { useFetchSpotsQuery } from "../store/api/apiSlice";
+import { Link } from "react-router-dom";
+import { useFetchSpotsQuery } from "../../store/api/apiSlice";
 
 export const Spots = () => {
   const { data, isLoading, isSuccess } = useFetchSpotsQuery();
@@ -12,10 +12,12 @@ export const Spots = () => {
       <Typography variant="h1">Lists of Spots</Typography>
       {data.map((spot) => (
         <div key={spot._id}>
-          <h2>{spot.title}</h2>
+          <Link to={`${spot._id}`}>
+            <h2>{spot.title}</h2>
+          </Link>
         </div>
       ))}
-           <Button variant="outlined">button</Button>
+      <Button variant="outlined">button</Button>
     </div>
   ) : (
     <p>Failed to load</p>
