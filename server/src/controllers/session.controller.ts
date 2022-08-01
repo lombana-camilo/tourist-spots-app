@@ -4,7 +4,6 @@ import { CreateSessionSchemaType } from "./../schemas/sesion.schema";
 import { validatePassword } from "./../services/user.services";
 import { signJwt } from "./../utils/jwt.utils";
 import config from "config";
-import SessionModel from "./../models/session.model";
 
 export const createSessionHandler = async (
   req: Request<{}, {}, CreateSessionSchemaType["body"]>,
@@ -66,7 +65,7 @@ export const getSessionsHandler = async (
 
 export const deleteSessionHandler = async (req: Request, res: Response) => {
   const sessionId = res.locals.user.sessionId;
-  const updated = await updateSession({ _id: sessionId }, { valid: false });
+  await updateSession({ _id: sessionId }, { valid: false });
   return res.send({
     accessToken: null,
     refreshToken: null,

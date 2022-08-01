@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { Layout } from "./components/layout/Layout";
 import { Spots } from "./components/Spots";
+import { SpotDetails } from "./components/SpotDetails";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
         <Route path="/spots" element={<Spots />} />
+        <Route path="/spots/:id" element={<SpotDetails />} />
 
         {/* Protected Routes */}
 

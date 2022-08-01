@@ -16,8 +16,6 @@ const deserializeUser = async (
   const refreshToken =
     get(req, "cookies.refreshToken", "") || get(req, "headers.x-refresh", "");
 
-   console.log({accessToken})
-   console.log({refreshToken})
   if (!accessToken) {
     return next();
   }
