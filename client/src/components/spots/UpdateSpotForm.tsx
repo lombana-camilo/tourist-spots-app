@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
 import { useState } from "react";
-import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
-import { useNavigate } from "react-router-dom";
+import { SpotDocument, useUpdateSpotMutation } from "../../store/api/spotsApiSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export const CreateSpotForm = () => {
+export const UpdateSpotForm = () => {
   // Zod Schema
+
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
@@ -16,6 +17,11 @@ export const CreateSpotForm = () => {
     ),
   });
   type CreateSpotType = TypeOf<typeof createSpotSchema>;
+  type LocationState = {
+    state: SpotDocument;
+  };
+  const location = useLocation() as LocationState;
+  const spot = location.state;
 
   const {
     register,
@@ -24,37 +30,48 @@ export const CreateSpotForm = () => {
   } = useForm<CreateSpotType>({ resolver: zodResolver(createSpotSchema) });
 
   const navigate = useNavigate();
-  const [createSpotError, setCreateSpotError] = useState("");
-  const [createSpot] = useCreateSpotMutation();
+  const [updateSpotError, setUpdateSpotError] = useState("");
+  const [updateSpot] = useUpdateSpotMutation();
 
   const onSubmit = async (values: CreateSpotType) => {
     try {
-      const newSpot = await createSpot(values).unwrap();
-      navigate(`/spots/${newSpot._id}`);
+      const updated = await updateSpot({...values,_id:spot._id}).unwrap();
+      navigate(`/spots/${updated._id}`);
     } catch (e: any) {
       console.log(e);
-      setCreateSpotError(e.error);
+      setUpdateSpotError(e.error);
     }
   };
 
   return (
     <div>
-      <h2>Create newSpot</h2>
-      <p>{createSpotError}</p>
+      <h2>Update Form</h2>
+      <p>{updateSpotError}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="title">Title:</label>
-          <input type="text" id="title" {...register("title")} />
+          <input
+            defaultValue={spot.title}
+            type="text"
+            id="title"
+            {...register("title")}
+          />
           <p>{errors.title?.message}</p>
         </div>
         <div>
           <label htmlFor="location">Location:</label>
-          <input type="text" id="location" {...register("location")} />
+          <input
+            defaultValue={spot.location}
+            type="text"
+            id="location"
+            {...register("location")}
+          />
           <p>{errors.location?.message}</p>
         </div>
         <div>
           <label htmlFor="description">Description:</label>
           <textarea
+            defaultValue={spot.description}
             id="description"
             cols={30}
             rows={10}

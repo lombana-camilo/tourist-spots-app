@@ -4,6 +4,7 @@ import { Layout } from "./components/layout/Layout";
 import { Spots } from "./components/spots/Spots";
 import { SpotDetails } from "./components/spots/SpotDetails";
 import { CreateSpotForm } from "./components/spots/CreateSpotForm";
+import { UpdateSpotForm } from "./components/spots/UpdateSpotForm";
 
 function App() {
   return (
@@ -13,13 +14,13 @@ function App() {
         <Route path="/spots" element={<Spots />} />
         <Route path="/spots/:id" element={<SpotDetails />} />
         <Route path="/spots/new" element={<CreateSpotForm />} />
+        <Route path="/spots/update" element={<UpdateSpotForm />} />
 
         {/* Protected Routes */}
 
         {/* <Route element={<RequireAuth />}> */}
-          {/* <Route path="/protected" element={<Protected />} /> */}
+        {/* <Route path="/protected" element={<Protected />} /> */}
         {/* </Route> */}
-
       </Route>
     </Routes>
   );

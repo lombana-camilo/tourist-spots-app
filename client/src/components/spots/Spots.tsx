@@ -1,9 +1,14 @@
 import { Typography, Button } from "@mui/material";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useFetchSpotsQuery } from "../../store/api/apiSlice";
+import { useFetchSpotsQuery } from "../../store/api/spotsApiSlice";
 
 export const Spots = () => {
-  const { data, isLoading, isSuccess } = useFetchSpotsQuery();
+  const { data, isLoading, isSuccess, refetch} = useFetchSpotsQuery();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return isLoading ? (
     <p>Loading...</p>
