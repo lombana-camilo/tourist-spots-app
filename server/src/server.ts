@@ -2,6 +2,8 @@ import express from "express"
 import routes from "./routes"
 import cors from "cors"
 import config from "config"
+import deserializeUser from "./middleware/deserializeUser"
+import cookieParser from "cookie-parser"
 const server = express()
 
 //middleware
@@ -11,6 +13,8 @@ server.use(cors({
    credentials:true
 }))
 
+server.use(cookieParser())
+server.use(deserializeUser)
 server.use("/api",routes)
 
 export default server

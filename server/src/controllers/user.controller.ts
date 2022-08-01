@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateUserSchemaType } from "src/schemas/user.schema";
+import { CreateUserSchemaType } from "./../schemas/user.schema";
 import { createUser } from "./../services/user.services";
 
 export const createUserHandler = async (
