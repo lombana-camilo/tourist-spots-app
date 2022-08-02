@@ -1,13 +1,38 @@
 import { Router } from "express";
 import validateRequest from "./../middleware/validateRequest";
-import { createSpotSchema, findSpotSchema, updateSpotSchema } from "./../schemas/spot.schema";
-import { createSpotHandler, findSpotHandler, getSpotsHandler, updateSpotHandler } from "./../controllers/spot.controller";
+import {
+  createSpotSchema,
+  deleteSpotSchema,
+  findSpotSchema,
+  updateSpotSchema,
+} from "./../schemas/spot.schema";
+import {
+  createSpotHandler,
+  deleteSpotHandler,
+  findSpotHandler,
+  getSpotsHandler,
+  updateSpotHandler,
+} from "./../controllers/spot.controller";
+import requireUser from "./../middleware/requireUser";
 
-const spots = Router()
+const spots = Router();
 
-spots.get("/",getSpotsHandler)
-spots.get("/:spotId",validateRequest(findSpotSchema), findSpotHandler)
-spots.post("/",validateRequest(createSpotSchema), createSpotHandler)
-spots.put("/:spotId",validateRequest(updateSpotSchema), updateSpotHandler)
+spots.get("/all", getSpotsHandler);
+spots.get("/:spotId", validateRequest(findSpotSchema), findSpotHandler);
+spots.post(
+  "/",
+  [requireUser, validateRequest(createSpotSchema)],
+  createSpotHandler
+);
+spots.put(
+  "/:spotId",
+  [requireUser, validateRequest(updateSpotSchema)],
+  updateSpotHandler
+);
+spots.delete(
+  "/:spotId",
+  [requireUser, validateRequest(deleteSpotSchema)],
+  deleteSpotHandler
+);
 
-export default spots
+export default spots;

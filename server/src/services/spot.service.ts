@@ -20,3 +20,7 @@ export const updateSpot = async (
 ) => {
   return await SpotModel.findOneAndUpdate(query, update, options);
 };
+
+export const deleteSpot = async (query: FilterQuery<Spot>) => {
+  return await SpotModel.deleteOne(query);
+};

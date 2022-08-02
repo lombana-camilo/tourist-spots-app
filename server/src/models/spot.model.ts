@@ -1,16 +1,25 @@
-import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  modelOptions,
+  prop,
+  Ref,
+} from "@typegoose/typegoose";
+import { User } from "./users.models";
 
 @modelOptions({ schemaOptions: { timestamps: false, versionKey: false } })
 export class Spot {
-  @prop({required:true})
+  @prop({ ref: () => User })
+  user: Ref<User>;
+
+  @prop({ required: true })
   title: string;
 
-  @prop({required:true})
+  @prop({ required: true })
   description: string;
 
-  @prop({required:true})
+  @prop({ required: true })
   location: string;
 }
 
-const SpotModel = getModelForClass(Spot)
-export default SpotModel
+const SpotModel = getModelForClass(Spot);
+export default SpotModel;

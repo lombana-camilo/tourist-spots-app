@@ -15,7 +15,7 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     fetchSpots: builder.query<SpotDocument[], void>({
-      query: () => `/spots`,
+      query: () => `/spots/all`,
     }),
     findSpot: builder.query<SpotDocument, string | undefined>({
       query: (id) => `/spots/${id}`,

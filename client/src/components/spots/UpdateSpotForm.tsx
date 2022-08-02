@@ -39,7 +39,7 @@ export const UpdateSpotForm = () => {
       navigate(`/spots/${updated._id}`);
     } catch (e: any) {
       console.log(e);
-      setUpdateSpotError(e.error);
+      setUpdateSpotError(e.data);
     }
   };
 
