@@ -26,7 +26,6 @@ export const findSpotHandler = async (
   req: Request<FindSpotType["params"]>,
   res: Response
 ) => {
-   console.log("enter handler")
   const spot = await findSpot({ _id: req.params.spotId });
   if (!spot) {
     return res.sendStatus(404);

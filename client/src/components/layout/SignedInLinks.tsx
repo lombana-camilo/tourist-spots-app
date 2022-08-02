@@ -5,7 +5,7 @@ export const SignedInLinks = () => {
    return (
       <div>
          <Link to="/spots/new"> New Spot </Link>
-         <Link to="/"> <LogOut/> </Link>
+         <Link to="/spots"> <LogOut/> </Link>
       </div>
    )
 }

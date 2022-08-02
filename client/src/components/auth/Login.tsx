@@ -2,14 +2,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
 import { useState } from "react";
-import { useCreateSessionMutation } from "../../store/api/authApiSlice";
+import {
+  useCreateSessionMutation,
+  useGetCurrentUserQuery,
+} from "../../store/api/authApiSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   //Zod schema
   const createSessionSchema = object({
     email: string({ required_error: "Email is required" }).email(
-      "Enter a valid Email"),
-      password: string().min(7, "Password must be 7 chars minimum!")
+      "Enter a valid Email"
+    ),
+    password: string().min(7, "Password must be 7 chars minimum!"),
   });
   type CreateSessionType = TypeOf<typeof createSessionSchema>;
 
@@ -17,15 +22,20 @@ export const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<CreateSessionType>({ resolver: zodResolver(createSessionSchema) });
+  } = useForm<CreateSessionType>({
+    resolver: zodResolver(createSessionSchema),
+  });
 
-   const [createSession] = useCreateSessionMutation()
-  const [loginError, setLoginError] = useState("")
+  const { refetch } = useGetCurrentUserQuery();
+  const navigate = useNavigate();
+  const [createSession] = useCreateSessionMutation();
+  const [loginError, setLoginError] = useState("");
   const onSubmit = async (values: CreateSessionType) => {
     try {
       const session = await createSession(values).unwrap();
-         console.log({session})
-      // navigate("/login");
+      console.log({ session });
+      navigate("/spots");
+      refetch();
     } catch (e: any) {
       setLoginError(e.data);
     }
@@ -46,9 +56,8 @@ export const Login = () => {
           <input id="password" type="password" {...register("password")} />
           <p>{errors.password?.message}</p>
         </div>
-               <button>Submit</button>
+        <button>Submit</button>
       </form>
     </div>
   );
 };
-

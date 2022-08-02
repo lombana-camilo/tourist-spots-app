@@ -13,7 +13,7 @@ export default {
   originUrl: "http://localhost:5173",
   // hash password
   saltFactor: 10,
-  accessTokenTtl: "10m",
+  accessTokenTtl: "1m",
   refreshTokenTtl: "30m",
   publicKey: `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmSLd6IUv+AX8lU0xIBMym9H7b
