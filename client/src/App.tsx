@@ -6,6 +6,7 @@ import { SpotDetails } from "./components/spots/SpotDetails";
 import { CreateSpotForm } from "./components/spots/CreateSpotForm";
 import { UpdateSpotForm } from "./components/spots/UpdateSpotForm";
 import { SignUp } from "./components/auth/SignUp";
+import { Login } from "./components/auth/Login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/spots/new" element={<CreateSpotForm />} />
         <Route path="/spots/update" element={<UpdateSpotForm />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
 

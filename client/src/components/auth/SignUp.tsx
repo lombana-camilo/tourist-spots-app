@@ -29,10 +29,11 @@ export const SignUp = () => {
   const [createUserError, setCreateUserError] = useState("")
   const onSubmit = async (values: CreateUserType) => {
     try {
-      await createUser(values);
+      await createUser(values).unwrap();
       // navigate("/login");
     } catch (e: any) {
-      setCreateUserError(e.response.data);
+         console.log(e)
+      setCreateUserError(e.data);
     }
   };
 

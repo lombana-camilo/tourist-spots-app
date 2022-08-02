@@ -30,14 +30,12 @@ export const reissueAccessToken = async (refreshToken: string) => {
 
   // Get Session
   const session = await SessionModel.findById(get(decoded, "sessionId"));
-   console.log({session})
   if (!session || !session.valid) {
     return false;
   }
 
   // Find user. Lean doesn't bring unnecesary methods
   const user = await UserModel.findOne({_id:session.user}).lean();
-   console.log({user})
   if (!user) {
     return false;
   }
@@ -54,6 +52,5 @@ export const updateSession = async(
   query: FilterQuery<Session>,
   update: UpdateQuery<Session>
 ) => {
-   console.log(query,update)
   return SessionModel.updateOne(query, update);
 };

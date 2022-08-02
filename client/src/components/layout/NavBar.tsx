@@ -7,7 +7,8 @@ export const NavBar = (props : {}) => {
          Tourist-Spots
          <Link to="/spots"> Spots </Link>
          <Link to="/spots/new"> New Spot </Link>
-         <Link to="/signup"> SignUp</Link>
+         <Link to="/signup"> SignUp </Link>
+         <Link to="/login"> Login </Link>
       </div>
    )
 }
