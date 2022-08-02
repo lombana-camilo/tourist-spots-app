@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
 import { useState } from "react";
+import { useCreateUserMutation } from "../../store/api/authApiSlice";
 
 export const SignUp = () => {
   //Zod schema
@@ -24,10 +25,11 @@ export const SignUp = () => {
     handleSubmit,
   } = useForm<CreateUserType>({ resolver: zodResolver(createUserSchema) });
 
+   const [createUser] = useCreateUserMutation()
   const [createUserError, setCreateUserError] = useState("")
   const onSubmit = async (values: CreateUserType) => {
     try {
-      // await createUser(values);
+      await createUser(values);
       // navigate("/login");
     } catch (e: any) {
       setCreateUserError(e.response.data);

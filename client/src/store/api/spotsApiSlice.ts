@@ -7,8 +7,8 @@ export interface SpotDocument {
   _id: string;
 }
 
-export const apiSlice = createApi({
-  reducerPath: "api",
+export const spotsApiSlice = createApi({
+  reducerPath: "spotsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_APP_SERVER_ENDPOINT,
     credentials: "include",
@@ -42,4 +42,4 @@ export const {
   useFindSpotQuery,
   useCreateSpotMutation,
   useUpdateSpotMutation,
-} = apiSlice;
+} = spotsApiSlice;

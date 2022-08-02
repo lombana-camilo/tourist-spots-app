@@ -1,0 +1,56 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+interface User {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+interface SessionData {
+  _id: string | null;
+  email: string | null;
+  username: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  sessionId: string | null;
+  iat: number | null;
+  exp: number | null;
+}
+
+interface Session {
+  email: string;
+  password: string;
+}
+export const authApiSlice = createApi({
+  reducerPath: "authApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_APP_SERVER_ENDPOINT,
+    credentials: "include",
+  }),
+  endpoints: (builder) => ({
+    getSession: builder.query<SessionData, void>({
+      query: () => `/users/me`,
+    }),
+    createSession: builder.mutation<SessionData, Session>({
+      query: (data) => ({
+        url: `/sessions`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    createUser: builder.mutation<void, User>({
+      query: (data) => ({
+        url: `/users`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+  }),
+});
+
+export const {
+  useGetSessionQuery,
+  useCreateUserMutation,
+  useCreateSessionMutation,
+} = authApiSlice;
