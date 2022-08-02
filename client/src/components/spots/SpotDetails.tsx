@@ -20,8 +20,7 @@ export const SpotDetails = () => {
       <h2>Description</h2>
       <div>{data.description}</div>
       <Link to="/spots/update" state={{ ...data }}>
-        {" "}
-        Update Data{" "}
+        Update Data
       </Link>
     </div>
   ) : (

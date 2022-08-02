@@ -36,7 +36,7 @@ export const createSessionHandler = async (
     domain: config.get("domain"),
     path: "/",
     sameSite: "strict",
-    secure: false, //true in production (cookie only used in https)
+    secure: false, //true in production (cookie only used over https)
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -45,7 +45,7 @@ export const createSessionHandler = async (
     domain: config.get("domain"),
     path: "/",
     sameSite: "strict",
-    secure: false, //true in production (cookie only used in https)
+    secure: false, //true in production (cookie only used over https)
   });
 
   // Return tokens

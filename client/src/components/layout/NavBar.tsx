@@ -1,14 +1,14 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+import { SignedInLinks } from './SignedInLinks'
+import { SignedOutLinks } from './SignedOutLinks'
 
-export const NavBar = (props : {}) => {
+export const NavBar = () => {
    return (
       <div>
          Tourist-Spots
          <Link to="/spots"> Spots </Link>
-         <Link to="/spots/new"> New Spot </Link>
-         <Link to="/signup"> SignUp </Link>
-         <Link to="/login"> Login </Link>
+         <SignedInLinks/>
+         <SignedOutLinks/>
       </div>
    )
 }

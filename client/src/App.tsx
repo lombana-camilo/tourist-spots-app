@@ -7,6 +7,7 @@ import { CreateSpotForm } from "./components/spots/CreateSpotForm";
 import { UpdateSpotForm } from "./components/spots/UpdateSpotForm";
 import { SignUp } from "./components/auth/SignUp";
 import { Login } from "./components/auth/Login";
+import { RequireAuth } from "./components/RequireAuth";
 
 function App() {
   return (
@@ -15,16 +16,15 @@ function App() {
         {/* Public Routes */}
         <Route path="/spots" element={<Spots />} />
         <Route path="/spots/:id" element={<SpotDetails />} />
-        <Route path="/spots/new" element={<CreateSpotForm />} />
-        <Route path="/spots/update" element={<UpdateSpotForm />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
 
-        {/* <Route element={<RequireAuth />}> */}
-        {/* <Route path="/protected" element={<Protected />} /> */}
-        {/* </Route> */}
+        <Route element={<RequireAuth />}>
+        <Route path="/spots/new" element={<CreateSpotForm />} />
+        <Route path="/spots/update" element={<UpdateSpotForm />} />
+        </Route>
       </Route>
     </Routes>
   );

@@ -29,7 +29,7 @@ export const authApiSlice = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getSession: builder.query<SessionData, void>({
+    getCurrentUser: builder.query<SessionData, void>({
       query: () => `/users/me`,
     }),
     createSession: builder.mutation<SessionData, Session>({
@@ -46,11 +46,18 @@ export const authApiSlice = createApi({
         body: data,
       }),
     }),
+    deleteSession: builder.mutation<void, void>({
+      query: () => ({
+        url: `/sessions`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 export const {
-  useGetSessionQuery,
+  useGetCurrentUserQuery,
   useCreateUserMutation,
   useCreateSessionMutation,
+  useDeleteSessionMutation,
 } = authApiSlice;
