@@ -83,6 +83,6 @@ export const deleteSpotHandler = async (
     return res.sendStatus(403);
   }
   //Update spot data
-  await deleteSpot({_id:spotId});
-  return res.sendStatus(200);
+  const deleted = await deleteSpot({_id:spotId});
+  return res.send(deleted);
 };

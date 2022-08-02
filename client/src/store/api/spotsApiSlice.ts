@@ -28,10 +28,16 @@ export const spotsApiSlice = createApi({
       }),
     }),
     updateSpot: builder.mutation<SpotDocument, SpotDocument>({
-      query: ({_id,...data}) => ({
+      query: ({ _id, ...data }) => ({
         url: `/spots/${_id}`,
         method: "PUT",
         body: data,
+      }),
+    }),
+    deleteSpot: builder.mutation<void, string | undefined>({
+      query: (id) => ({
+        url: `/spots/${id}`,
+        method: "DELETE",
       }),
     }),
   }),
@@ -42,4 +48,5 @@ export const {
   useFindSpotQuery,
   useCreateSpotMutation,
   useUpdateSpotMutation,
+  useDeleteSpotMutation,
 } = spotsApiSlice;
