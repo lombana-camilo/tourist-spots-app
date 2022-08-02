@@ -9,12 +9,12 @@ export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isSuccess, refetch } = useFindSpotQuery(id);
   const [ removeSpot ] = useDeleteSpotMutation();
+  // const {  } = useDeleteSpotMutation();
   const navigate = useNavigate();
 
   const deleteSpot = async () => {
     try {
-      const a = await removeSpot(id).unwrap()
-         console.log(a)
+      await removeSpot(id).unwrap()
       navigate("/spots");
     } catch (e) {
       console.log(e);

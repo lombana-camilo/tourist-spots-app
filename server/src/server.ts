@@ -4,10 +4,12 @@ import cors from "cors"
 import config from "config"
 import deserializeUser from "./middleware/deserializeUser"
 import cookieParser from "cookie-parser"
+import morgan from "morgan"
 const server = express()
 
 //middleware
 server.use(express.json())
+server.use(morgan('tiny'))
 server.use(cors({
    origin:config.get<string>('originUrl'),
    credentials:true
