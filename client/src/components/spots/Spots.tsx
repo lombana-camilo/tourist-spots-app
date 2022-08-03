@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Box,
   Button,
 } from "@mui/material";
 import { useEffect } from "react";

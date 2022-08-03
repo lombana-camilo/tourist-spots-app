@@ -14,24 +14,24 @@ import {
 } from "./../services/spot.service";
 
 export const getSpotsHandler = async (_: Request, res: Response) => {
-  const spots = await getSpots();
-
-  if (!spots) {
+  try {
+    const spots = await getSpots();
+    return res.send(spots);
+  } catch (e) {
     return res.sendStatus(404);
   }
-  return res.send(spots);
 };
 
 export const findSpotHandler = async (
   req: Request<FindSpotType["params"]>,
   res: Response
 ) => {
-  const spot = await findSpot({ _id: req.params.spotId });
-  if (!spot) {
+  try {
+    const spot = await findSpot({ _id: req.params.spotId });
+    return res.send(spot);
+  } catch (e) {
     return res.sendStatus(404);
   }
-
-  return res.send(spot);
 };
 
 export const createSpotHandler = async (
@@ -58,7 +58,9 @@ export const updateSpotHandler = async (
 
   // Ownership constrol
   if (spot.user?.toString() !== userId) {
-    return res.sendStatus(403);
+    return res
+      .status(403)
+      .send("You do not have permission to update this spot!");
   }
   //Update spot data
   const updated = await updateSpot({ _id: spotId }, req.body, { new: true });
@@ -80,9 +82,11 @@ export const deleteSpotHandler = async (
 
   // Ownership constrol
   if (spot.user?.toString() !== userId) {
-    return res.sendStatus(403);
+    return res
+      .status(403)
+      .send("You do not have permission to delete this spot!");
   }
   //Update spot data
-  const deleted = await deleteSpot({_id:spotId});
+  const deleted = await deleteSpot({ _id: spotId });
   return res.send(deleted);
 };

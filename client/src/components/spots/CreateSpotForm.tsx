@@ -4,6 +4,7 @@ import { object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 export const CreateSpotForm = () => {
   // Zod Schema
@@ -34,39 +35,58 @@ export const CreateSpotForm = () => {
       navigate(`/spots/${newSpot._id}`);
     } catch (e: any) {
       console.log(e);
-      setCreateSpotError(e.error);
+      setCreateSpotError(e.data || e.status);
     }
   };
 
   return (
-    <div>
-      <h2>Create newSpot</h2>
-      <p>{createSpotError}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="title">Title:</label>
-          <input type="text" id="title" {...register("title")} />
-          <p>{errors.title?.message}</p>
-        </div>
-        <div>
-          <label htmlFor="location">Location:</label>
-          <input type="text" id="location" {...register("location")} />
-          <p>{errors.location?.message}</p>
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            cols={30}
-            rows={10}
+    <Box>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Create new spot
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <TextField
+            label="title"
+            autoFocus
+            fullWidth
+            required
+            {...register("title")}
+            error={!!errors.title}
+            helperText={errors.title?.message}
+          />
+          <TextField
+            label="location"
+            fullWidth
+            required
+            {...register("location")}
+            error={!!errors.location}
+            helperText={errors.location?.message}
+          />
+          <TextField
+            label="image"
+            fullWidth
+            required
+            {...register("image")}
+            error={!!errors.image}
+            helperText={errors.image?.message}
+          />
+          <TextField
+            label="description"
+            multiline
+            rows={4}
+            fullWidth
+            required
             {...register("description")}
-          ></textarea>
-          <p>{errors.description?.message}</p>
-        </div>
-        <button type="submit" disabled={!!Object.keys(errors).length && true}>
-          Submit
-        </button>
+            error={!!errors.description}
+            helperText={errors.description?.message}
+          />
+          <Button variant="contained" color="success" fullWidth type="submit">
+            Create Spot
+          </Button>
+          <Typography color="error">{createSpotError}</Typography>
+        </Box>
       </form>
-    </div>
+    </Box>
   );
 };

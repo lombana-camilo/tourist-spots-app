@@ -1,4 +1,14 @@
-import { useEffect } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteSpotMutation,
@@ -9,15 +19,15 @@ export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isSuccess, refetch } = useFindSpotQuery(id);
   const [removeSpot] = useDeleteSpotMutation();
-  // const {  } = useDeleteSpotMutation();
   const navigate = useNavigate();
+  const [authError, setAuthError] = useState("");
 
   const deleteSpot = async () => {
     try {
       await removeSpot(id).unwrap();
       navigate("/spots");
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setAuthError(e.data || e.status);
     }
   };
 
@@ -26,20 +36,50 @@ export const SpotDetails = () => {
   }, []);
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Typography>Loading...</Typography>
   ) : isSuccess ? (
-    <div>
-      Spot Details
-      <h2>{data.title}</h2>
-      <img src={data.image} alt="" />
-      <h2>Description</h2>
-      <div>{data.description}</div>
-      <Link to="/spots/update" state={{ ...data }}>
-        Update Data
-      </Link>
-      <button onClick={deleteSpot}>Delete Spot</button>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        mx: "auto",
+        width: "50%",
+        height: "100%",
+      }}
+    >
+      <Card variant="outlined">
+        <Grid item md={8}>
+          <CardMedia
+            component="img"
+            height="220"
+            image={data.image}
+            sx={{ objectFit: "fill" }}
+          />
+        </Grid>
+        <Grid item md={4}>
+          <CardContent>
+            <Typography variant="h6">{data.title}</Typography>
+            <Typography variant="body2">{data.location}</Typography>
+            <Typography variant="body1" color="text.secondary">
+              {data.description.slice(0, 280)}
+            </Typography>
+          </CardContent>
+        </Grid>
+
+        <CardActions>
+          <Button
+            onClick={() => navigate("/spots/update", { state: { ...data } })}
+          >
+            Update
+          </Button>
+          <Button color="error" onClick={deleteSpot}>
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
+      <Typography color="error">{authError}</Typography>
+    </Box>
   ) : (
-    <p>Failed to load</p>
+    <Typography color="error">Failed to load</Typography>
   );
 };

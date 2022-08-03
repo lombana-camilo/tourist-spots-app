@@ -7,7 +7,7 @@ import {
   useGetCurrentUserQuery,
 } from "../../store/api/authApiSlice";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 
 export const Login = () => {
   //Zod schema
@@ -34,22 +34,24 @@ export const Login = () => {
   const onSubmit = async (values: CreateSessionType) => {
     try {
       const session = await createSession(values).unwrap();
-      console.log({ session });
       navigate("/spots");
       refetch();
     } catch (e: any) {
-      setLoginError(e.data);
+      console.log(e);
+      setLoginError(e.data || e.status);
     }
   };
 
   return (
-    <div>
-      <p>{loginError}</p>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box>
+    <Container maxWidth="md">
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
           <TextField
             label="email"
+            autoFocus
             fullWidth
             required
             {...register("email")}
@@ -67,8 +69,9 @@ export const Login = () => {
           <Button variant="contained" type="submit" fullWidth>
             Submit
           </Button>
+          <Typography color="error">{loginError}</Typography>
         </Box>
       </form>
-    </div>
+    </Container>
   );
 };

@@ -6,7 +6,12 @@ export const getSpots = async () => {
 };
 
 export const findSpot = async (query: FilterQuery<Spot>) => {
-  return await SpotModel.findOne(query, {}, { lean: true });
+   try {
+      
+      return await SpotModel.findOne(query, {}, { lean: true });
+   } catch (e) {
+     throw new Error(e) 
+   }
 };
 
 export const createSpot = async (spot: Spot) => {

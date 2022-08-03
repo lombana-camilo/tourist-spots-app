@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateUserMutation } from "../../store/api/authApiSlice";
-import { Button, Container, TextField } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 
 export const SignUp = () => {
   //Zod schema
@@ -34,15 +34,15 @@ export const SignUp = () => {
       // navigate("/login");
     } catch (e: any) {
       console.log(e);
-      setCreateUserError(e.data);
+      setCreateUserError(e.data || e.status);
     }
   };
 
   return (
     <Container maxWidth="md">
-      <p>{createUserError}</p>
-      <h1>SignUp</h1>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>SignUp</Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <Box sx={{display:"flex", flexDirection:"column",gap:3}}>
           <TextField
             label="Username"
             autoFocus
@@ -79,6 +79,8 @@ export const SignUp = () => {
         <Button variant="contained" type="submit" fullWidth>
           Submit
         </Button>
+      <Typography color="error">{createUserError}</Typography>
+        </Box>
       </form>
     </Container>
   );
