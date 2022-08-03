@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
-import { LogOut } from '../auth/LogOut'
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const SignedOutLinks = () => {
-   return (
-      <div>
-         <Link to="/signup"> SignUp </Link>
-         <Link to="/login"> Login </Link>
-      </div>
-   )
-}
-
+   const navigate = useNavigate()
+  return (
+    <div>
+      <Button variant="outlined" onClick={() => navigate("/signup")}>SignUp</Button>
+      <Button variant="outlined" onClick={() => navigate("/login")}>Login</Button>
+    </div>
+  );
+};

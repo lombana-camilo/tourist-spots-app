@@ -7,7 +7,7 @@ import {
   useGetCurrentUserQuery,
 } from "../../store/api/authApiSlice";
 import { useNavigate } from "react-router-dom";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 export const Login = () => {
   //Zod schema
@@ -47,6 +47,7 @@ export const Login = () => {
       <p>{loginError}</p>
       <h1>Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Box>
           <TextField
             label="email"
             fullWidth
@@ -63,9 +64,10 @@ export const Login = () => {
             error={!!errors.password}
             helperText={errors.password?.message}
           />
-        <Button variant="contained" type="submit" fullWidth>
-          Submit
-        </Button>
+          <Button variant="contained" type="submit" fullWidth>
+            Submit
+          </Button>
+        </Box>
       </form>
     </div>
   );
