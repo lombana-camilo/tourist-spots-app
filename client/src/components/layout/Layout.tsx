@@ -7,7 +7,7 @@ export const Layout = () => {
   return (
     <>
       <NavBar />
-      <Container sx={{ marginTop: 10 }}>
+      <Container sx={{ my: 10 }}>
         <Outlet />
       </Container>
       <Footer />

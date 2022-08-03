@@ -1,30 +1,63 @@
-import { Typography, Button } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Box,
+  Button,
+} from "@mui/material";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFetchSpotsQuery } from "../../store/api/spotsApiSlice";
 
 export const Spots = () => {
-  const { data, isLoading, isSuccess, refetch} = useFetchSpotsQuery();
+  const { data, isLoading, isSuccess, refetch } = useFetchSpotsQuery();
+  const navigate = useNavigate();
 
   useEffect(() => {
     refetch();
   }, []);
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Typography>Loading...</Typography>
   ) : isSuccess ? (
-    <div>
-      <Typography variant="h1">Lists of Spots</Typography>
-      {data.map((spot) => (
-        <div key={spot._id}>
-          <Link to={`${spot._id}`}>
-            <h2>{spot.title}</h2>
-          </Link>
-        </div>
-      ))}
-      <Button variant="outlined">button</Button>
-    </div>
+    <>
+      <Typography variant="h3">Lists of Spots</Typography>
+      <Grid container direction="column">
+        {data.map((spot) => (
+          <Card key={spot._id} sx={{ mb: 3, display: "flex" }}>
+            <Grid item md={4}>
+              <CardMedia
+                component="img"
+                height="220"
+                image={spot.image}
+                sx={{ objectFit: "fill" }}
+              />
+            </Grid>
+            <Grid item md={8}>
+              <CardContent>
+                <Typography variant="h6">{spot.title}</Typography>
+                <Typography variant="body1" gutterBottom>
+                  {spot.description.slice(0, 280)}
+                </Typography>
+                <Typography variant="body2" color="gray">
+                  {spot.location}
+                </Typography>
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  onClick={() => navigate(`/spots/${spot._id}`)}
+                >
+                  View {spot.title}
+                </Button>
+              </CardContent>
+            </Grid>
+          </Card>
+        ))}
+      </Grid>
+    </>
   ) : (
-    <p>Failed to load</p>
+    <Typography color="error">Failed to load</Typography>
   );
 };
