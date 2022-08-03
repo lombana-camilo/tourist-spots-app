@@ -19,6 +19,9 @@ export class Spot {
 
   @prop({ required: true })
   location: string;
+
+  @prop({ required: true })
+  image: string;
 }
 
 const SpotModel = getModelForClass(Spot);

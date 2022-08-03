@@ -9,6 +9,7 @@ export const CreateSpotForm = () => {
   // Zod Schema
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
+    image: string().min(1, "Image is required"),
     location: string().min(1, "Location is required"),
     description: string({ required_error: "Description is required" }).min(
       20,

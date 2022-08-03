@@ -8,13 +8,13 @@ import {
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isSuccess, refetch } = useFindSpotQuery(id);
-  const [ removeSpot ] = useDeleteSpotMutation();
+  const [removeSpot] = useDeleteSpotMutation();
   // const {  } = useDeleteSpotMutation();
   const navigate = useNavigate();
 
   const deleteSpot = async () => {
     try {
-      await removeSpot(id).unwrap()
+      await removeSpot(id).unwrap();
       navigate("/spots");
     } catch (e) {
       console.log(e);
@@ -30,8 +30,8 @@ export const SpotDetails = () => {
   ) : isSuccess ? (
     <div>
       Spot Details
-      <h2>Title</h2>
-      <div>{data.title}</div>
+      <h2>{data.title}</h2>
+      <img src={data.image} alt="" />
       <h2>Description</h2>
       <div>{data.description}</div>
       <Link to="/spots/update" state={{ ...data }}>

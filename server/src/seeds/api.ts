@@ -25,7 +25,11 @@ const filterData = async () => {
     const { data } = await axios.request(options);
     const dataArray = data.data;
     const completeOnes = dataArray.filter((spot: any) => {
-      return spot.description?.length > 0 && spot.location_string?.length > 0;
+      return (
+        spot.description?.length > 0 &&
+        spot.location_string?.length > 0 &&
+        spot.photo.images.original.url?.length > 0
+      );
     });
 
     const filterArray = completeOnes.map((spot: any) => {
@@ -33,6 +37,7 @@ const filterData = async () => {
         title: spot.name,
         description: spot.description,
         location: spot.location_string,
+        image: spot.photo.images.original.url,
       };
     });
     return filterArray;

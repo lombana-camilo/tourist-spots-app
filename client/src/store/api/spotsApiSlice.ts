@@ -4,6 +4,7 @@ export interface SpotDocument {
   title: string;
   description: string;
   location: string;
+  image: string;
   _id: string;
 }
 
