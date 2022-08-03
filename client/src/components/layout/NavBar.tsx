@@ -1,5 +1,4 @@
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetCurrentUserQuery } from "../../store/api/authApiSlice";
 import { SignedInLinks } from "./SignedInLinks";
@@ -10,9 +9,9 @@ export const NavBar = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <AppBar sx={{ background: "#0C2249" }}>
+      <AppBar  sx={{ background: "#323336" }}>
         <Toolbar>
-          <Typography variant="h4" sx={{flexGrow:1}}>Tourist-Spots</Typography>
+          <Typography variant="h5" sx={{flexGrow:1}}>Tourist-Spots</Typography>
           <Stack direction="row" spacing={2}>
             <Button onClick={() => navigate("/spots")}>Spots</Button>
             {isLoading ? null : isSuccess ? (
