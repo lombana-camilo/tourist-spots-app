@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchSpotsQuery } from "../../store/api/spotsApiSlice";
+import { NotFound } from "./NotFound";
 
 export const Spots = () => {
   const { data, isLoading, isSuccess, refetch } = useFetchSpotsQuery();
@@ -57,6 +58,6 @@ export const Spots = () => {
       </Grid>
     </>
   ) : (
-    <Typography color="error">Failed to load</Typography>
+    <NotFound message="Failed to load Spots"/>
   );
 };

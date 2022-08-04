@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { Typography } from "@mui/material";
 import { Layout } from "./components/layout/Layout";
 import { Spots } from "./components/spots/Spots";
 import { SpotDetails } from "./components/spots/SpotDetails";
@@ -8,6 +7,7 @@ import { UpdateSpotForm } from "./components/spots/UpdateSpotForm";
 import { SignUp } from "./components/auth/SignUp";
 import { Login } from "./components/auth/Login";
 import { RequireAuth } from "./components/RequireAuth";
+import { NotFound } from "./components/spots/NotFound";
 
 function App() {
   return (
@@ -22,9 +22,16 @@ function App() {
         {/* Protected Routes */}
 
         <Route element={<RequireAuth />}>
-        <Route path="/spots/new" element={<CreateSpotForm />} />
-        <Route path="/spots/update" element={<UpdateSpotForm />} />
+          <Route path="/spots/new" element={<CreateSpotForm />} />
+          <Route path="/spots/update" element={<UpdateSpotForm />} />
         </Route>
+        {/* not found */}
+        <Route
+          path="/*"
+          element={
+            <NotFound message="The page you are looking does not exist" />
+          }
+        />
       </Route>
     </Routes>
   );

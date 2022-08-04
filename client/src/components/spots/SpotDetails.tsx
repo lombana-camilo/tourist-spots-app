@@ -9,11 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteSpotMutation,
   useFindSpotQuery,
 } from "../../store/api/spotsApiSlice";
+import { NotFound } from "./NotFound";
+import { ReviewForm } from "./ReviewForm";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,13 +43,12 @@ export const SpotDetails = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
         mx: "auto",
-        width: "50%",
+        width: "60%",
         height: "100%",
       }}
     >
-      <Card variant="outlined">
+      <Card variant="outlined" sx={{ width: "100%" }}>
         <Grid item md={8}>
           <CardMedia
             component="img"
@@ -68,18 +69,35 @@ export const SpotDetails = () => {
 
         <CardActions>
           <Button
+            variant="outlined"
             onClick={() => navigate("/spots/update", { state: { ...data } })}
           >
             Update
           </Button>
-          <Button color="error" onClick={deleteSpot}>
+          <Button variant="outlined" color="error" onClick={deleteSpot}>
             Delete
           </Button>
         </CardActions>
       </Card>
+
+      <Card variant="outlined" sx={{ width: "100%" }}>
+        <Grid item md={4}>
+          <CardMedia
+            component="img"
+            height="220"
+            // image={data.image}
+            sx={{ objectFit: "fill" }}
+          />
+        </Grid>
+        <Grid item md={8}>
+          <CardContent>
+            <ReviewForm />
+          </CardContent>
+        </Grid>
+      </Card>
       <Typography color="error">{authError}</Typography>
     </Box>
   ) : (
-    <Typography color="error">Failed to load</Typography>
+    <NotFound message="This spot does not exist" />
   );
 };
