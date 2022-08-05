@@ -40,7 +40,6 @@ export const createSpotHandler = async (
 ) => {
   const userId = res.locals.user._id;
   const newSpot = await createSpot({ ...req.body, user: userId,reviews:[] });
-   console.log("newSpot",await newSpot.populate("user"))
   return res.send(newSpot);
 };
 

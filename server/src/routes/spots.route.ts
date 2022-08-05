@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import validateRequest from "./../middleware/validateRequest";
 import {
   createSpotSchema,
@@ -37,5 +37,5 @@ spots.delete(
 );
 
 //Reviews
-spots.use("/reviews", reviews)
+spots.use("/:spotId/reviews", reviews);
 export default spots;

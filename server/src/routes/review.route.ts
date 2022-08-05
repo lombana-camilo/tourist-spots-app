@@ -1,11 +1,14 @@
 import { Router } from "express";
 import validateRequest from "./../middleware/validateRequest";
-import { createReviewSchema, getSpotReviewsSchema } from "./../schemas/review.schema";
-import { createReviewHandler } from "./../controllers/review.controller";
+import {
+  createReviewSchema,
+  deleteReviewsSchema,
+} from "./../schemas/review.schema";
+import { createReviewHandler, deleteReviewHandler } from "./../controllers/review.controller";
 
-const reviews = Router()
+const reviews = Router({ mergeParams: true });
 
-reviews.post("/:spot",validateRequest(createReviewSchema), createReviewHandler)
-// reviews.get("/:spot",validateRequest(getSpotReviewsSchema), getSpotReviewsHandler)
+reviews.post("/", validateRequest(createReviewSchema), createReviewHandler);
+reviews.delete("/:reviewId", validateRequest(deleteReviewsSchema), deleteReviewHandler);
 
-export default reviews
+export default reviews;

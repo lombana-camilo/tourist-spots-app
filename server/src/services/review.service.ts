@@ -5,10 +5,6 @@ export const createReview = async (review: Review) => {
   return await ReviewModel.create(review);
 };
 
-export const getSpotReviews = async (query:FilterQuery<Review>)=>{
-   try {
-      return await ReviewModel.find(query, {}, { lean: true });
-   } catch (e) {
-     throw new Error(e) 
-   }
-}
+export const deleteReview = async (query: FilterQuery<Review>) => {
+  return await ReviewModel.findOneAndDelete(query, { lean: true });
+};

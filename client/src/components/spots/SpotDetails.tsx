@@ -93,7 +93,7 @@ export const SpotDetails = () => {
         <Grid item md={8}>
           <CardContent>
             <ReviewForm spotId={id as string} refetch={refetch} />
-            <ReviewsList reviews={data.reviews}/>
+            <ReviewsList reviews={data.reviews} spotId={id as string}/>
           </CardContent>
         </Grid>
       </Card>
