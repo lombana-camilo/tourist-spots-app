@@ -1,10 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface ReviewDocument{
+   comment:string,
+   rating:number
+   _id:string
+}
 export interface SpotDocument {
   title: string;
   description: string;
   location: string;
   image: string;
+   reviews:ReviewDocument[]
   _id: string;
 }
 

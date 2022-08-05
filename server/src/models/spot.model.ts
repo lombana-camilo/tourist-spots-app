@@ -4,6 +4,7 @@ import {
   prop,
   Ref,
 } from "@typegoose/typegoose";
+import { Review } from "./review.model";
 import { User } from "./users.models";
 
 @modelOptions({ schemaOptions: { timestamps: false, versionKey: false } })
@@ -22,6 +23,9 @@ export class Spot {
 
   @prop({ required: true })
   image: string;
+
+  @prop({ ref: () => Review })
+  reviews: Ref<Review>[];
 }
 
 const SpotModel = getModelForClass(Spot);

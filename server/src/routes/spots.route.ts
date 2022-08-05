@@ -14,6 +14,7 @@ import {
   updateSpotHandler,
 } from "./../controllers/spot.controller";
 import requireUser from "./../middleware/requireUser";
+import reviews from "./review.route";
 
 const spots = Router();
 
@@ -35,4 +36,6 @@ spots.delete(
   deleteSpotHandler
 );
 
+//Reviews
+spots.use("/reviews", reviews)
 export default spots;

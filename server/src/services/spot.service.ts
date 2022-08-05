@@ -6,12 +6,11 @@ export const getSpots = async () => {
 };
 
 export const findSpot = async (query: FilterQuery<Spot>) => {
-   try {
-      
-      return await SpotModel.findOne(query, {}, { lean: true });
-   } catch (e) {
-     throw new Error(e) 
-   }
+  try {
+    return await SpotModel.findOne(query, {}, { lean: true }).populate("reviews")
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 export const createSpot = async (spot: Spot) => {

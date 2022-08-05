@@ -9,8 +9,6 @@ export class Review {
    @prop({required:true})
    rating:number
 
-   @prop({ref:()=>Spot})
-   spot:Ref<Spot>
 }
 
 const ReviewModel = getModelForClass(Review)

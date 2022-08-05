@@ -14,8 +14,9 @@ import {
   useDeleteSpotMutation,
   useFindSpotQuery,
 } from "../../store/api/spotsApiSlice";
+import { ReviewForm } from "../reviews/ReviewForm";
+import { ReviewsList } from "../reviews/ReviewsList";
 import { NotFound } from "./NotFound";
-import { ReviewForm } from "./ReviewForm";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -91,7 +92,8 @@ export const SpotDetails = () => {
         </Grid>
         <Grid item md={8}>
           <CardContent>
-            <ReviewForm />
+            <ReviewForm spotId={id as string} refetch={refetch} />
+            <ReviewsList reviews={data.reviews}/>
           </CardContent>
         </Grid>
       </Card>

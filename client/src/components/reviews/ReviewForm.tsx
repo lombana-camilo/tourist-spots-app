@@ -1,18 +1,32 @@
 import { Button, Rating, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { get } from "lodash";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useCreateReviewMutation } from "../../store/api/reviewsApiSlice";
 
-export const ReviewForm = () => {
+interface Props {
+  spotId: string;
+  refetch: () => void;
+}
+export const ReviewForm: FC<Props> = ({ spotId, refetch }) => {
   const {
     formState: { errors },
     register,
     handleSubmit,
   } = useForm();
 
-  const [rating, setRating] = useState<number | null>(0);
+  const [rating, setRating] = useState<number | null>(3);
+  const [createReview] = useCreateReviewMutation();
 
-  const onSubmit = (comment: any) => {
-    // console.log(comment{comment:any});
+  const onSubmit = async (values: any) => {
+    try {
+      const comment = get(values, "comment");
+      const rat = rating as number;
+      await createReview({ comment, rating: rat, spotId }).unwrap();
+      refetch();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -21,7 +35,7 @@ export const ReviewForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Rating
           precision={1}
-          defaultValue={5}
+          defaultValue={3}
           onChange={(_, value: number | null) => setRating(value)}
         />
         <TextField
