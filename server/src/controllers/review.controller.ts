@@ -1,16 +1,26 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import SpotModel from "./../models/spot.model";
 import { CreateReviewType, DeleteReviewType } from "./../schemas/review.schema";
 import { createReview, deleteReview } from "./../services/review.service";
 
-export const createReviewHandler = async (req: Request<CreateReviewType["params"],{},CreateReviewType["body"]>, res: Response) => {
+export const createReviewHandler = async (
+  req: Request<CreateReviewType["params"], {}, CreateReviewType["body"]>,
+  res: Response
+) => {
   try {
     const { rating, comment } = req.body;
-    const spot = await SpotModel.findById(req.params.spotId);
+    const { spotId } = req.params;
+    const spotObjectId = new mongoose.Types.ObjectId(spotId);
+    const spot = await SpotModel.findById(spotId);
     if (!spot) {
       return res.sendStatus(404);
     }
-    const review = await createReview({ rating, comment });
+    const review = await createReview({
+      rating,
+      comment,
+      spotId: spotObjectId,
+    });
     spot.reviews.push(review);
     await spot.save();
     return res.send(review);

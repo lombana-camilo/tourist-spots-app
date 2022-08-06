@@ -9,6 +9,8 @@ export class Review {
    @prop({required:true})
    rating:number
 
+   @prop({ref:"Spot"})
+   spotId:Ref<Spot>
 }
 
 const ReviewModel = getModelForClass(Review)

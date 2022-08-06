@@ -39,7 +39,7 @@ export const createSpotHandler = async (
   res: Response
 ) => {
   const userId = res.locals.user._id;
-  const newSpot = await createSpot({ ...req.body, user: userId,reviews:[] });
+  const newSpot = await createSpot({ ...req.body, user: userId, reviews: [] });
   return res.send(newSpot);
 };
 
@@ -86,7 +86,8 @@ export const deleteSpotHandler = async (
       .status(403)
       .send("You do not have permission to delete this spot!");
   }
-  //Update spot data
+  //Delete spot
   const deleted = await deleteSpot({ _id: spotId });
+
   return res.send(deleted);
 };
