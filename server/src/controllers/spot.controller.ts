@@ -91,6 +91,6 @@ export const deleteSpotHandler = async (
   const deleted = await deleteSpot({ _id: spotId });
 
    //Delete Reviews' associations
-   await ReviewModel.remove({spotId})
+   await ReviewModel.deleteMany({spotId})
   return res.send(deleted);
 };

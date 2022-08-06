@@ -8,6 +8,8 @@ import {
 } from "../../store/api/authApiSlice";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useAppDispatch } from "../../store/hooks";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 export const Login = () => {
   //Zod schema
@@ -27,15 +29,24 @@ export const Login = () => {
     resolver: zodResolver(createSessionSchema),
   });
 
-  const { refetch } = useGetCurrentUserQuery();
+  const { refetch, data } = useGetCurrentUserQuery();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [createSession] = useCreateSessionMutation();
   const [loginError, setLoginError] = useState("");
+
   const onSubmit = async (values: CreateSessionType) => {
     try {
-      const session = await createSession(values).unwrap();
+      await createSession(values).unwrap();
       navigate("/spots");
       refetch();
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Welcome ${data?.username}`
+        })
+      );
     } catch (e: any) {
       console.log(e);
       setLoginError(e.data || e.status);

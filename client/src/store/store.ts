@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authApiSlice } from "./api/authApiSlice";
 import { reviewsApiSlice } from "./api/reviewsApiSlice";
 import { spotsApiSlice } from "./api/spotsApiSlice";
+import notificationsSlice from "./notifications/notificationsSlice";
 import currentUserSlice from "./user/currentUserSlice";
 
 const store = configureStore({
   reducer: {
     getCurrentSession: currentUserSlice,
+    notification: notificationsSlice,
     [spotsApiSlice.reducerPath]: spotsApiSlice.reducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
     [reviewsApiSlice.reducerPath]: reviewsApiSlice.reducer,
@@ -15,7 +17,7 @@ const store = configureStore({
     return getDefaultMiddleware()
       .concat(spotsApiSlice.middleware)
       .concat(authApiSlice.middleware)
-      .concat(reviewsApiSlice.middleware)
+      .concat(reviewsApiSlice.middleware);
   },
 });
 
