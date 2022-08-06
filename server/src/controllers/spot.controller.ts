@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import ReviewModel from "./../models/review.model";
 import {
   CreateSpotType,
   DeleteSpotType,
@@ -89,5 +90,7 @@ export const deleteSpotHandler = async (
   //Delete spot
   const deleted = await deleteSpot({ _id: spotId });
 
+   //Delete Reviews' associations
+   await ReviewModel.remove({spotId})
   return res.send(deleted);
 };
