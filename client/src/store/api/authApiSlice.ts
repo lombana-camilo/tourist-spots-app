@@ -39,7 +39,7 @@ export const authApiSlice = createApi({
         body: data,
       }),
     }),
-    createUser: builder.mutation<void, User>({
+    createUser: builder.mutation<void, Session>({
       query: (data) => ({
         url: `/users`,
         method: "POST",

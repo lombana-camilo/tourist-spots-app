@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
-import { useState } from "react";
 import {
   useCreateSessionMutation,
   useLazyGetCurrentUserQuery,

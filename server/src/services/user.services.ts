@@ -6,7 +6,8 @@ export const createUser = async (
 ) => {
   try {
     const newUser = await UserModel.create(createUserInput);
-    return omit(newUser.toJSON(), "password");
+    const omitPassword = omit(newUser.toJSON(), "password");
+    return { ...omitPassword, _id: newUser._id as string };
   } catch (error) {
     throw new Error(error);
   }
@@ -29,6 +30,6 @@ export const validatePassword = async ({
     return false;
   }
 
-   const omitPassword = omit(user.toJSON(), "password");
-   return {...omitPassword,_id:user._id as string}
+  const omitPassword = omit(user.toJSON(), "password");
+  return { ...omitPassword, _id: user._id as string };
 };

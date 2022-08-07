@@ -9,12 +9,15 @@ export const createSessionHandler = async (
   req: Request<{}, {}, CreateSessionSchemaType["body"]>,
   res: Response
 ) => {
-  // Validate user and password
-  const user = await validatePassword(req.body);
+
+   //Check if there is a new user
+   // Validate user and password
+   const user = res.locals.newUser || await validatePassword(req.body);
   if (!user) {
     return res.status(401).send("Incorrect Email or Password");
   }
 
+   console.log({user})
   // Create a session
   const session = await createSession(user._id, req.get("user-agent") || "");
 

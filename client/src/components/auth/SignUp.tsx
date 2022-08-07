@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
-import { useState } from "react";
-import { useCreateUserMutation } from "../../store/api/authApiSlice";
+import {
+  useCreateUserMutation,
+  useLazyGetCurrentUserQuery,
+} from "../../store/api/authApiSlice";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
@@ -32,16 +34,18 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [createUser] = useCreateUserMutation();
+  const [getCurrentUser] = useLazyGetCurrentUserQuery();
 
   const onSubmit = async (values: CreateUserType) => {
     try {
       await createUser(values).unwrap();
-      navigate("/login");
+      navigate("/spots");
+      await getCurrentUser().unwrap();
       dispatch(
         setSnackBar({
           snackBarOpen: true,
           snackBarType: "success",
-          snackBarMessage: `User created successfully!  Please Login`,
+          snackBarMessage: `User created successfully!`,
         })
       );
     } catch (e: any) {
