@@ -27,14 +27,14 @@ export const spotsApiSlice = createApi({
     findSpot: builder.query<SpotDocument, string | undefined>({
       query: (id) => `/spots/${id}`,
     }),
-    createSpot: builder.mutation<SpotDocument, Omit<SpotDocument, "_id">>({
+    createSpot: builder.mutation<SpotDocument, Omit<SpotDocument, "_id"|"reviews">>({
       query: (data) => ({
         url: `/spots`,
         method: "POST",
         body: data,
       }),
     }),
-    updateSpot: builder.mutation<SpotDocument, SpotDocument>({
+    updateSpot: builder.mutation<SpotDocument, Omit<SpotDocument,'reviews'>>({
       query: ({ _id, ...data }) => ({
         url: `/spots/${_id}`,
         method: "PUT",

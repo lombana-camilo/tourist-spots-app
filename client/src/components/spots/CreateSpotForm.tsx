@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 export const CreateSpotForm = () => {
   // Zod Schema
@@ -26,6 +28,7 @@ export const CreateSpotForm = () => {
   } = useForm<CreateSpotType>({ resolver: zodResolver(createSpotSchema) });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [createSpotError, setCreateSpotError] = useState("");
   const [createSpot] = useCreateSpotMutation();
 
@@ -33,6 +36,13 @@ export const CreateSpotForm = () => {
     try {
       const newSpot = await createSpot(values).unwrap();
       navigate(`/spots/${newSpot._id}`);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Spot created successfully!`,
+        })
+      );
     } catch (e: any) {
       console.log(e);
       setCreateSpotError(e.data || e.status);

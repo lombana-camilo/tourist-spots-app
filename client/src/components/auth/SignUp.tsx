@@ -4,6 +4,9 @@ import { object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateUserMutation } from "../../store/api/authApiSlice";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 export const SignUp = () => {
   //Zod schema
@@ -26,23 +29,39 @@ export const SignUp = () => {
     handleSubmit,
   } = useForm<CreateUserType>({ resolver: zodResolver(createUserSchema) });
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [createUser] = useCreateUserMutation();
-  const [createUserError, setCreateUserError] = useState("");
+
   const onSubmit = async (values: CreateUserType) => {
     try {
       await createUser(values).unwrap();
-      // navigate("/login");
+      navigate("/login");
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `User created successfully!  Please Login`,
+        })
+      );
     } catch (e: any) {
-      console.log(e);
-      setCreateUserError(e.data || e.status);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "warning",
+          snackBarMessage: e.data || e.status,
+        })
+      );
     }
   };
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" fontWeight="bold" gutterBottom>SignUp</Typography>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        SignUp
+      </Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{display:"flex", flexDirection:"column",gap:3}}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
           <TextField
             label="Username"
             autoFocus
@@ -64,22 +83,23 @@ export const SignUp = () => {
             label="password"
             fullWidth
             required
+            type="password"
             {...register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
           />
           <TextField
             label="passwordConfirmation"
+            type="password"
             fullWidth
             required
             {...register("passwordConfirmation")}
             error={!!errors.passwordConfirmation}
             helperText={errors.passwordConfirmation?.message}
           />
-        <Button variant="contained" type="submit" fullWidth>
-          Submit
-        </Button>
-      <Typography color="error">{createUserError}</Typography>
+          <Button variant="contained" type="submit" fullWidth>
+            Submit
+          </Button>
         </Box>
       </form>
     </Container>

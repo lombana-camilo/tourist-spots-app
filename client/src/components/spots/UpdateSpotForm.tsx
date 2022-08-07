@@ -8,6 +8,8 @@ import {
 } from "../../store/api/spotsApiSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 export const UpdateSpotForm = () => {
   // Zod Schema
@@ -35,16 +37,28 @@ export const UpdateSpotForm = () => {
   } = useForm<CreateSpotType>({ resolver: zodResolver(createSpotSchema) });
 
   const navigate = useNavigate();
-  const [updateSpotError, setUpdateSpotError] = useState("");
+  const dispatch = useDispatch();
   const [updateSpot] = useUpdateSpotMutation();
 
   const onSubmit = async (values: CreateSpotType) => {
     try {
       const updated = await updateSpot({ ...values, _id: spot._id }).unwrap();
       navigate(`/spots/${updated._id}`);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Spot updated successfully!`,
+        })
+      );
     } catch (e: any) {
-      console.log(e);
-      setUpdateSpotError(e.data || e.status);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "warning",
+          snackBarMessage: e.data || e.status,
+        })
+      );
     }
   };
 
@@ -97,7 +111,6 @@ export const UpdateSpotForm = () => {
           <Button variant="contained" color="info" fullWidth type="submit">
             Update
           </Button>
-          <Typography color="error">{updateSpotError}</Typography>
         </Box>
       </form>
     </Container>

@@ -19,7 +19,7 @@ const notificationSlice = createSlice({
   reducers: {
     setSnackBar: (state, action: PayloadAction<SnackBarDocument>) => {
       const { snackBarOpen, snackBarType, snackBarMessage } = action.payload;
-      state.snackBarOpen = snackBarOpen;
+      state.snackBarOpen = snackBarOpen
       state.snackBarType = snackBarType;
       state.snackBarMessage = snackBarMessage;
     },

@@ -8,8 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { useDeleteReviewMutation } from "../../store/api/reviewsApiSlice";
 import { useFindSpotQuery } from "../../store/api/spotsApiSlice";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 interface ReviewDocument {
   comment: string;
@@ -24,11 +26,19 @@ interface Props {
 export const ReviewsList: FC<Props> = ({ reviews, spotId }) => {
   const [deleteReview] = useDeleteReviewMutation();
   const { refetch } = useFindSpotQuery(spotId);
+   const dispatch = useDispatch()
 
   const handleDelete = async (reviewId: string) => {
     try {
       await deleteReview({ spotId, reviewId }).unwrap();
       refetch();
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Successfully deleted review!`,
+        })
+      );
     } catch (e) {
       console.log(e);
     }

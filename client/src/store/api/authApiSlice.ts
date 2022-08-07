@@ -56,7 +56,8 @@ export const authApiSlice = createApi({
 });
 
 export const {
-  useGetCurrentUserQuery,
+  useLazyGetCurrentUserQuery,
+   useGetCurrentUserQuery,
   useCreateUserMutation,
   useCreateSessionMutation,
   useDeleteSessionMutation,

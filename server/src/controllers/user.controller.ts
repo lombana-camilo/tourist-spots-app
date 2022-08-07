@@ -10,10 +10,9 @@ export const createUserHandler = async (
     const newUser = await createUser(req.body);
     return res.send(newUser);
   } catch (err) {
-    console.log(err);
     //This response is sent when a request conflicts with the current state of the server.
     //it violates unique field on user model
-    return res.status(409).send(err.message);
+    return res.status(409).send("This email is already in use");
   }
 };
 

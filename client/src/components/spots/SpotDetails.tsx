@@ -8,12 +8,15 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLazyGetCurrentUserQuery } from "../../store/api/authApiSlice";
 import {
   useDeleteSpotMutation,
   useFindSpotQuery,
 } from "../../store/api/spotsApiSlice";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 import { ReviewForm } from "../reviews/ReviewForm";
 import { ReviewsList } from "../reviews/ReviewsList";
 import { NotFound } from "./NotFound";
@@ -21,21 +24,36 @@ import { NotFound } from "./NotFound";
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isSuccess, refetch } = useFindSpotQuery(id);
+  const [getCurrentUser, results] = useLazyGetCurrentUserQuery();
   const [removeSpot] = useDeleteSpotMutation();
   const navigate = useNavigate();
-  const [authError, setAuthError] = useState("");
+  const dispatch = useDispatch();
 
   const deleteSpot = async () => {
     try {
       await removeSpot(id).unwrap();
       navigate("/spots");
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Successfully deleted spot!`,
+        })
+      );
     } catch (e: any) {
-      setAuthError(e.data || e.status);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "warning",
+          snackBarMessage: e.data || e.status,
+        })
+      );
     }
   };
 
   useEffect(() => {
     refetch();
+    getCurrentUser();
   }, []);
 
   return isLoading ? (
@@ -71,11 +89,17 @@ export const SpotDetails = () => {
         <CardActions>
           <Button
             variant="outlined"
+            disabled={results.isError}
             onClick={() => navigate("/spots/update", { state: { ...data } })}
           >
             Update
           </Button>
-          <Button variant="outlined" color="error" onClick={deleteSpot}>
+          <Button
+            disabled={results.isError}
+            variant="outlined"
+            color="error"
+            onClick={deleteSpot}
+          >
             Delete
           </Button>
         </CardActions>
@@ -93,13 +117,12 @@ export const SpotDetails = () => {
         <Grid item md={8}>
           <CardContent>
             <ReviewForm spotId={id as string} refetch={refetch} />
-            <ReviewsList reviews={data.reviews} spotId={id as string}/>
+            <ReviewsList reviews={data.reviews} spotId={id as string} />
           </CardContent>
         </Grid>
       </Card>
-      <Typography color="error">{authError}</Typography>
     </Box>
   ) : (
-    <NotFound message="This spot does not exist" />
+    <NotFound message="Cannot find that spot!" />
   );
 };

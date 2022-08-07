@@ -4,7 +4,7 @@ import { object, string, TypeOf } from "zod";
 import { useState } from "react";
 import {
   useCreateSessionMutation,
-  useGetCurrentUserQuery,
+  useLazyGetCurrentUserQuery,
 } from "../../store/api/authApiSlice";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
@@ -29,27 +29,31 @@ export const Login = () => {
     resolver: zodResolver(createSessionSchema),
   });
 
-  const { refetch, data } = useGetCurrentUserQuery();
+   const [getCurrentUser] = useLazyGetCurrentUserQuery()
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [createSession] = useCreateSessionMutation();
-  const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (values: CreateSessionType) => {
     try {
       await createSession(values).unwrap();
       navigate("/spots");
-      refetch();
+        const userSession = await getCurrentUser().unwrap()
+        dispatch(
+          setSnackBar({
+            snackBarOpen: true,
+            snackBarType: "success",
+            snackBarMessage: `Welcome ${userSession.username}`,
+          })
+        );
+    } catch (e: any) {
       dispatch(
         setSnackBar({
           snackBarOpen: true,
-          snackBarType: "success",
-          snackBarMessage: `Welcome ${data?.username}`
+          snackBarType: "warning",
+          snackBarMessage: e.data || e.status,
         })
       );
-    } catch (e: any) {
-      console.log(e);
-      setLoginError(e.data || e.status);
     }
   };
 
@@ -73,6 +77,7 @@ export const Login = () => {
             label="password"
             fullWidth
             required
+            type="password"
             {...register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
@@ -80,7 +85,6 @@ export const Login = () => {
           <Button variant="contained" type="submit" fullWidth>
             Submit
           </Button>
-          <Typography color="error">{loginError}</Typography>
         </Box>
       </form>
     </Container>

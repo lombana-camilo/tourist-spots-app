@@ -2,7 +2,9 @@ import { Button, Rating, TextField, Typography } from "@mui/material";
 import { get } from "lodash";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useCreateReviewMutation } from "../../store/api/reviewsApiSlice";
+import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 interface Props {
   spotId: string;
@@ -15,6 +17,7 @@ export const ReviewForm: FC<Props> = ({ spotId, refetch }) => {
     handleSubmit,
   } = useForm();
 
+   const dispatch = useDispatch()
   const [rating, setRating] = useState<number | null>(3);
   const [createReview] = useCreateReviewMutation();
 
@@ -24,6 +27,13 @@ export const ReviewForm: FC<Props> = ({ spotId, refetch }) => {
       const rat = rating as number;
       await createReview({ comment, rating: rat, spotId }).unwrap();
       refetch();
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Created new review!`,
+        })
+      );
     } catch (e) {
       console.log(e);
     }
