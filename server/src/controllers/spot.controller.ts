@@ -29,6 +29,7 @@ export const findSpotHandler = async (
 ) => {
   try {
     const spot = await findSpot({ _id: req.params.spotId });
+      console.log({spot})
     return res.send(spot);
   } catch (e) {
     return res.sendStatus(404);
@@ -40,7 +41,7 @@ export const createSpotHandler = async (
   res: Response
 ) => {
   const userId = res.locals.user._id;
-  const newSpot = await createSpot({ ...req.body, user: userId, reviews: [] });
+  const newSpot = await createSpot({ ...req.body, user: userId,reviews:[] });
   return res.send(newSpot);
 };
 

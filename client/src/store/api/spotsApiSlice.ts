@@ -5,6 +5,11 @@ interface ReviewDocument{
    rating:number
    _id:string
 }
+interface User {
+  username: string;
+  email: string;
+   _id:string
+}
 export interface SpotDocument {
   title: string;
   description: string;
@@ -12,6 +17,7 @@ export interface SpotDocument {
   image: string;
    reviews:ReviewDocument[]
   _id: string;
+   user:User
 }
 
 export const spotsApiSlice = createApi({

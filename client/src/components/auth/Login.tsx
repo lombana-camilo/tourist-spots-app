@@ -5,10 +5,11 @@ import {
   useCreateSessionMutation,
   useLazyGetCurrentUserQuery,
 } from "../../store/api/authApiSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
+import { get } from "lodash";
 
 export const Login = () => {
   //Zod schema
@@ -28,23 +29,29 @@ export const Login = () => {
     resolver: zodResolver(createSessionSchema),
   });
 
-   const [getCurrentUser] = useLazyGetCurrentUserQuery()
+  const [getCurrentUser] = useLazyGetCurrentUserQuery();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const [createSession] = useCreateSessionMutation();
 
   const onSubmit = async (values: CreateSessionType) => {
     try {
       await createSession(values).unwrap();
-      navigate("/spots");
-        const userSession = await getCurrentUser().unwrap()
-        dispatch(
-          setSnackBar({
-            snackBarOpen: true,
-            snackBarType: "success",
-            snackBarMessage: `Welcome ${userSession.username}`,
-          })
-        );
+      //Check user intended navigation
+      if (get(location.state,"from")) {
+        navigate(get(location.state,"from"));
+      } else {
+        navigate("/spots");
+      }
+      const userSession = await getCurrentUser().unwrap();
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "success",
+          snackBarMessage: `Welcome ${userSession.username}`,
+        })
+      );
     } catch (e: any) {
       dispatch(
         setSnackBar({

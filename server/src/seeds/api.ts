@@ -20,7 +20,7 @@ const options = {
   },
 };
 
-const filterData = async () => {
+const filterData = async (admin: any) => {
   try {
     const { data } = await axios.request(options);
     const dataArray = data.data;
@@ -38,6 +38,8 @@ const filterData = async () => {
         description: spot.description,
         location: spot.location_string,
         image: spot.photo.images.original.url,
+        reviews: [],
+        user: admin,
       };
     });
     return filterArray;

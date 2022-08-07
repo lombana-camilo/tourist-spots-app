@@ -83,6 +83,8 @@ export const SpotDetails = () => {
             <Typography variant="body1" color="text.secondary">
               {data.description.slice(0, 280)}
             </Typography>
+            <hr />
+            <Typography variant="h6" fontSize={18}>Created by: {data.user.username}</Typography>
           </CardContent>
         </Grid>
 
