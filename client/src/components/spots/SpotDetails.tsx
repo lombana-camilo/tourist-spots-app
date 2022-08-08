@@ -23,10 +23,16 @@ import { NotFound } from "./NotFound";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const { data:spotData, isLoading, isSuccess, refetch } = useFindSpotQuery(id);
+  const {
+    data: spotData,
+    isLoading,
+    isSuccess,
+    refetch,
+  } = useFindSpotQuery(id);
   const [getCurrentUser, resultsUser] = useLazyGetCurrentUserQuery();
   const [removeSpot] = useDeleteSpotMutation();
-  const navigate = useNavigate(); const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const deleteSpot = async () => {
     try {
@@ -83,7 +89,9 @@ export const SpotDetails = () => {
               {spotData.description.slice(0, 280)}
             </Typography>
             <hr />
-            <Typography variant="h6" fontSize={18}>Created by: {spotData.user.username}</Typography>
+            <Typography variant="h6" fontSize={18}>
+              Created by: {spotData.user.username}
+            </Typography>
           </CardContent>
         </Grid>
 
@@ -91,7 +99,9 @@ export const SpotDetails = () => {
           <Button
             variant="outlined"
             disabled={spotData.user._id !== resultsUser.data?._id}
-            onClick={() => navigate("/spots/update", { state: { ...spotData } })}
+            onClick={() =>
+              navigate("/spots/update", { state: { ...spotData } })
+            }
           >
             Update
           </Button>
@@ -117,9 +127,8 @@ export const SpotDetails = () => {
         </Grid>
         <Grid item md={8}>
           <CardContent>
-            {/* <ReviewForm spotId={id as string} refetch={refetch} /> */}
-            <ReviewForm spot={spotData} />
-            <ReviewsList spot={spotData}/>
+            {resultsUser.isSuccess && <ReviewForm spot={spotData} />}
+            <ReviewsList spot={spotData} />
           </CardContent>
         </Grid>
       </Card>

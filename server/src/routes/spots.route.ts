@@ -19,21 +19,16 @@ import reviews from "./review.route";
 const spots = Router();
 
 spots.get("/all", getSpotsHandler);
-spots.get("/:spotId", validateRequest(findSpotSchema), findSpotHandler);
+spots
+  .route("/:spotId")
+  .get(validateRequest(findSpotSchema), findSpotHandler)
+  .put([requireUser, validateRequest(updateSpotSchema)], updateSpotHandler)
+  .delete([requireUser, validateRequest(deleteSpotSchema)], deleteSpotHandler);
+
 spots.post(
   "/",
   [requireUser, validateRequest(createSpotSchema)],
   createSpotHandler
-);
-spots.put(
-  "/:spotId",
-  [requireUser, validateRequest(updateSpotSchema)],
-  updateSpotHandler
-);
-spots.delete(
-  "/:spotId",
-  [requireUser, validateRequest(deleteSpotSchema)],
-  deleteSpotHandler
 );
 
 //Reviews
