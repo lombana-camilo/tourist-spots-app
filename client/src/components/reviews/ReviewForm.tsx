@@ -2,30 +2,28 @@ import { Button, Rating, TextField, Typography } from "@mui/material";
 import { get } from "lodash";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useCreateReviewMutation } from "../../store/api/reviewsApiSlice";
+import { SpotDocument, useFindSpotQuery } from "../../store/api/spotsApiSlice";
+import { useAppDispatch } from "../../store/hooks";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
-interface Props {
-  spotId: string;
-  refetch: () => void;
-}
-export const ReviewForm: FC<Props> = ({ spotId, refetch }) => {
+export const ReviewForm: FC<{spot:SpotDocument}> = ({spot}) => {
   const {
     formState: { errors },
     register,
     handleSubmit,
   } = useForm();
 
-   const dispatch = useDispatch()
+   const dispatch = useAppDispatch()
   const [rating, setRating] = useState<number | null>(3);
   const [createReview] = useCreateReviewMutation();
+  const {refetch} = useFindSpotQuery(spot._id)
 
   const onSubmit = async (values: any) => {
     try {
       const comment = get(values, "comment");
       const rat = rating as number;
-      await createReview({ comment, rating: rat, spotId }).unwrap();
+      await createReview({ comment, rating: rat, spotId:spot._id }).unwrap();
       refetch();
       dispatch(
         setSnackBar({

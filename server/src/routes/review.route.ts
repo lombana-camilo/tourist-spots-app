@@ -4,11 +4,23 @@ import {
   createReviewSchema,
   deleteReviewsSchema,
 } from "./../schemas/review.schema";
-import { createReviewHandler, deleteReviewHandler } from "./../controllers/review.controller";
+import {
+  createReviewHandler,
+  deleteReviewHandler,
+} from "./../controllers/review.controller";
+import requireUser from "./../middleware/requireUser";
 
 const reviews = Router({ mergeParams: true });
 
-reviews.post("/", validateRequest(createReviewSchema), createReviewHandler);
-reviews.delete("/:reviewId", validateRequest(deleteReviewsSchema), deleteReviewHandler);
+reviews.post(
+  "/",
+  [requireUser, validateRequest(createReviewSchema)],
+  createReviewHandler
+);
+reviews.delete(
+  "/:reviewId",
+  [requireUser, validateRequest(deleteReviewsSchema)],
+  deleteReviewHandler
+);
 
 export default reviews;

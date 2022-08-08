@@ -1,9 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface User {
+  username: string;
+  email: string;
+   _id:string
+}
 export interface ReviewReceive {
   comment: string;
   rating: number;
   _id: string;
+   user:User
 }
 export interface CreateReviewSend {
   comment: string;

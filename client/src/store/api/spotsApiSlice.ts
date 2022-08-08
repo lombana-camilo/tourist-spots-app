@@ -4,6 +4,7 @@ interface ReviewDocument{
    comment:string,
    rating:number
    _id:string
+   user:User
 }
 interface User {
   username: string;
@@ -40,7 +41,7 @@ export const spotsApiSlice = createApi({
         body: data,
       }),
     }),
-    updateSpot: builder.mutation<SpotDocument, Omit<SpotDocument,'reviews'>>({
+    updateSpot: builder.mutation<SpotDocument, Omit<SpotDocument,'reviews'|'user'>>({
       query: ({ _id, ...data }) => ({
         url: `/spots/${_id}`,
         method: "PUT",

@@ -1,4 +1,6 @@
+import console from "console";
 import { Request, Response } from "express";
+import { get } from "lodash";
 import ReviewModel from "./../models/review.model";
 import {
   CreateSpotType,
@@ -29,7 +31,6 @@ export const findSpotHandler = async (
 ) => {
   try {
     const spot = await findSpot({ _id: req.params.spotId });
-      console.log({spot})
     return res.send(spot);
   } catch (e) {
     return res.sendStatus(404);
@@ -49,7 +50,7 @@ export const updateSpotHandler = async (
   req: Request<UpdateSpotType["params"], {}, UpdateSpotType["body"]>,
   res: Response
 ) => {
-  //Find user _id
+  //Get user _id
   const userId = res.locals.user._id;
   //Find Spot to update
   const spotId = req.params.spotId;
@@ -57,9 +58,8 @@ export const updateSpotHandler = async (
   if (!spot) {
     return res.sendStatus(404);
   }
-
   // Ownership constrol
-  if (spot.user?.toString() !== userId) {
+  if (get(spot.user,"_id").toString() !== userId) {
     return res
       .status(403)
       .send("You do not have permission to update this spot!");
@@ -83,7 +83,7 @@ export const deleteSpotHandler = async (
   }
 
   // Ownership constrol
-  if (spot.user?.toString() !== userId) {
+  if (get(spot.user,"_id").toString() !== userId) {
     return res
       .status(403)
       .send("You do not have permission to delete this spot!");

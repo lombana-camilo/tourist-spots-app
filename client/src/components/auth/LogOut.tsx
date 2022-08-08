@@ -1,15 +1,15 @@
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   useDeleteSessionMutation,
   useLazyGetCurrentUserQuery,
 } from "../../store/api/authApiSlice";
+import { useAppDispatch } from "../../store/hooks";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
 export const LogOut = () => {
   const navigate = useNavigate();
-   const dispatch = useDispatch()
+   const dispatch = useAppDispatch()
   const [ getCurrentUser ] = useLazyGetCurrentUserQuery();
   const [deleteSession] = useDeleteSessionMutation();
   const handleLogout = async () => {

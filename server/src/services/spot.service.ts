@@ -7,7 +7,9 @@ export const getSpots = async () => {
 
 export const findSpot = async (query: FilterQuery<Spot>) => {
   try {
-    return await SpotModel.findOne(query, {}, { lean: true }).populate("reviews").populate("user")
+    return await SpotModel.findOne(query)
+      .populate({path:"reviews",populate:{path: "user" }})
+      .populate("user");
   } catch (e) {
     throw new Error(e);
   }

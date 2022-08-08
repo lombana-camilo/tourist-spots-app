@@ -16,10 +16,10 @@ const seedDb = async () => {
 
     const admin = await UserModel.create({
       username: "admin",
-      password: "admin",
+      password: "admin123",
       email: "admin@mail.com",
     });
-    console.log("Created admin user");
+    console.log("Created admin user, admin@mail.com, pw:admin123");
 
     //Seed
     const seedData = await filterArray(admin._id);

@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 export const UpdateSpotForm = () => {
   // Zod Schema
@@ -37,7 +38,7 @@ export const UpdateSpotForm = () => {
   } = useForm<CreateSpotType>({ resolver: zodResolver(createSpotSchema) });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [updateSpot] = useUpdateSpotMutation();
 
   const onSubmit = async (values: CreateSpotType) => {
