@@ -17,7 +17,6 @@ export const createSessionHandler = async (
     return res.status(401).send("Incorrect Email or Password");
   }
 
-   console.log({user})
   // Create a session
   const session = await createSession(user._id, req.get("user-agent") || "");
 

@@ -1,6 +1,9 @@
 import "dotenv/config";
 
 const { DB_NAME, DB_HOST, API_KEY, API_HOST, PRIVATE_KEY } = process.env;
+//Cloudinary
+const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY } =
+  process.env;
 const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 
 export default {
@@ -22,4 +25,9 @@ fC/jluWWNH03N+NPJ3Xo87WmfUmh/vZJRWe+kGKLcNiU0Mu94egSH7DAl5TiRfp7
 XhIrqMWGtkuXzEc/CQIDAQAB
 -----END PUBLIC KEY-----`,
   privateKey: PRIVATE_KEY,
+
+  //Cloudinary
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+  CLOUDINARY_CLOUD_NAME,
 };

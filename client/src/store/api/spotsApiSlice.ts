@@ -1,31 +1,31 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface ReviewDocument{
-   comment:string,
-   rating:number
-   _id:string
-   user:User
+interface ReviewDocument {
+  comment: string;
+  rating: number;
+  _id: string;
+  user: User;
 }
 interface User {
   username: string;
   email: string;
-   _id:string
+  _id: string;
 }
 export interface SpotDocument {
   title: string;
   description: string;
   location: string;
-  image: string;
-   reviews:ReviewDocument[]
+  image: File | FormData;
+  reviews: ReviewDocument[];
   _id: string;
-   user:User
+  user: User;
 }
 
 export const spotsApiSlice = createApi({
   reducerPath: "spotsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_APP_SERVER_ENDPOINT,
-    credentials: "include",
+    credentials: "include"
   }),
   endpoints: (builder) => ({
     fetchSpots: builder.query<SpotDocument[], void>({
@@ -34,14 +34,19 @@ export const spotsApiSlice = createApi({
     findSpot: builder.query<SpotDocument, string | undefined>({
       query: (id) => `/spots/${id}`,
     }),
-    createSpot: builder.mutation<SpotDocument, Omit<SpotDocument, "_id"|"reviews">>({
+    createSpot: builder.mutation
+      // < SpotDocument, Omit<SpotDocument, "_id" | "reviews" | "user"> >
+   ({
       query: (data) => ({
         url: `/spots`,
         method: "POST",
         body: data,
       }),
     }),
-    updateSpot: builder.mutation<SpotDocument, Omit<SpotDocument,'reviews'|'user'>>({
+    updateSpot: builder.mutation<
+      SpotDocument,
+      Omit<SpotDocument, "reviews" | "user">
+    >({
       query: ({ _id, ...data }) => ({
         url: `/spots/${_id}`,
         method: "PUT",
