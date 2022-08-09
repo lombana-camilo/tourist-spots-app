@@ -11,13 +11,18 @@ const payload = {
   }),
 };
 
+const image = {
+   file:object({})
+}
+
+
 const params = {
   params: object({
     spotId: string({ required_error: "Spot Id is required" }),
   }),
 };
 
-export const createSpotSchema = object({ ...payload });
+export const createSpotSchema = object({ ...payload,...image });
 export const updateSpotSchema = object({ ...payload, ...params });
 export const findSpotSchema = object({ ...params });
 export const deleteSpotSchema = object({ ...params });

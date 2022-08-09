@@ -22,7 +22,7 @@ export class Spot {
   location: string;
 
   @prop({ required: true })
-  image: string;
+  image: object;
 
   @prop({ ref: () => Review })
   reviews: Ref<Review>[];

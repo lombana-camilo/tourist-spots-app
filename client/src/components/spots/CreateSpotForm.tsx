@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { custom, object, string, TypeOf, z } from "zod";
+import { object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,6 @@ export const CreateSpotForm = () => {
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
-    image: custom(),
     description: string({ required_error: "Description is required" }).min(
       20,
       "Minumum 20 chars required"
@@ -30,11 +29,11 @@ export const CreateSpotForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [image, setImage] = useState<Blob | string>("");
+  const [image, setImage] = useState<Blob | string >("");
   const [createSpotError, setCreateSpotError] = useState("");
   const [createSpot] = useCreateSpotMutation();
 
-  console.log({ errors });
+  // console.log({ errors });
   const onSubmit = async (values: CreateSpotType) => {
     try {
       //Set image
@@ -44,7 +43,7 @@ export const CreateSpotForm = () => {
       formData.append("title", values.title);
       formData.append("location", values.location);
       formData.append("description", values.description);
-      formData.append("image", image);
+      formData.append("image", image );
       // const newSpot = await createSpot({ ...values, image:formData }).unwrap();
       const newSpot = await createSpot(formData).unwrap();
       // navigate(`/spots/${newSpot._id}`);
@@ -98,8 +97,8 @@ export const CreateSpotForm = () => {
           />
           {/* <Button variant="contained" component="label" color="primary"> */}
           {/* Upload a file */}
-          {/* <input type="file" name="image" onChange={handleUpload} /> */}
-          <input type="file" {...register("image")} />
+          <input type="file" name="image" onChange={handleUpload} />
+          {/* <input type="file" {...register("image")} /> */}
           {/* </Button> */}
           {/* <TextField */}
           {/*   label="image" */}

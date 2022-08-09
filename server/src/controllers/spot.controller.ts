@@ -42,8 +42,16 @@ export const createSpotHandler = async (
   res: Response
 ) => {
   const userId = res.locals.user._id;
-  const newSpot = await createSpot({ ...req.body, user: userId,reviews:[] });
-  return res.send(newSpot);
+  if (req.file) {
+    const newSpot = await createSpot({
+      ...req.body,
+      image: req.file,
+      user: userId,
+      reviews: [],
+    });
+    return res.send(newSpot);
+  }
+   return res.sendStatus(404)
 };
 
 export const updateSpotHandler = async (
@@ -59,7 +67,7 @@ export const updateSpotHandler = async (
     return res.sendStatus(404);
   }
   // Ownership constrol
-  if (get(spot.user,"_id").toString() !== userId) {
+  if (get(spot.user, "_id").toString() !== userId) {
     return res
       .status(403)
       .send("You do not have permission to update this spot!");
@@ -83,7 +91,7 @@ export const deleteSpotHandler = async (
   }
 
   // Ownership constrol
-  if (get(spot.user,"_id").toString() !== userId) {
+  if (get(spot.user, "_id").toString() !== userId) {
     return res
       .status(403)
       .send("You do not have permission to delete this spot!");
@@ -91,7 +99,7 @@ export const deleteSpotHandler = async (
   //Delete spot
   const deleted = await deleteSpot({ _id: spotId });
 
-   //Delete Reviews' associations
-   await ReviewModel.deleteMany({spotId})
+  //Delete Reviews' associations
+  await ReviewModel.deleteMany({ spotId });
   return res.send(deleted);
 };
