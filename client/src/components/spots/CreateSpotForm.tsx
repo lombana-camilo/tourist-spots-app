@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf } from "zod";
+import { custom, object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ export const CreateSpotForm = () => {
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
+    image: custom(),
     description: string({ required_error: "Description is required" }).min(
       20,
       "Minumum 20 chars required"
@@ -29,7 +30,6 @@ export const CreateSpotForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [image, setImage] = useState<Blob | string >("");
   const [createSpotError, setCreateSpotError] = useState("");
   const [createSpot] = useCreateSpotMutation();
 
@@ -38,13 +38,16 @@ export const CreateSpotForm = () => {
     try {
       //Set image
       console.log({ values });
-      console.log({ image });
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("location", values.location);
       formData.append("description", values.description);
-      formData.append("image", image );
-      // const newSpot = await createSpot({ ...values, image:formData }).unwrap();
+
+      for (let i = 0; i < values.image.length; i++) {
+        formData.append("image", values.image[i]);
+      }
+
+      console.log("image", values.image);
       const newSpot = await createSpot(formData).unwrap();
       // navigate(`/spots/${newSpot._id}`);
       dispatch(
@@ -58,11 +61,6 @@ export const CreateSpotForm = () => {
       console.log(e);
       setCreateSpotError(e.data || e.status);
     }
-  };
-
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log({formData})
-    setImage(get(e, "target.files", "")[0]);
   };
 
   return (
@@ -97,17 +95,9 @@ export const CreateSpotForm = () => {
           />
           {/* <Button variant="contained" component="label" color="primary"> */}
           {/* Upload a file */}
-          <input type="file" name="image" onChange={handleUpload} />
-          {/* <input type="file" {...register("image")} /> */}
+          {/* <input type="file" name="image" onChange={handleUpload} /> */}
+          <input type="file" {...register("image")} multiple />
           {/* </Button> */}
-          {/* <TextField */}
-          {/*   label="image" */}
-          {/*   fullWidth */}
-          {/*   required */}
-          {/*   {...register("image")} */}
-          {/*   error={!!errors.image} */}
-          {/*   helperText={errors.image?.message} */}
-          {/* /> */}
           <TextField
             label="description"
             multiline

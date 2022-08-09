@@ -29,17 +29,21 @@ spots
 
 import multer from "multer";
 import path from "path";
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname,"./../uploads"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({storage});
-spots.post("/", upload.single("image"), (req: Request, res: Response) => {
+import { storage } from "./../utils/cloudinary";
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname,"./../uploads"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
+
+const upload = multer({storage:storage});
+spots.post("/", upload.array("image"), (req: Request, res: Response) => {
   console.log("body",req.body);
+  console.log("files",req.files);
   console.log("file",req.file);
   res.json(req.file);
 });

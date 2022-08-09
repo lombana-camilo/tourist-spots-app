@@ -1,6 +1,8 @@
 import {v2 as cloudinary} from "cloudinary";
 import config from "config";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 cloudinary.config({
   cloud_name: config.get("CLOUDINARY_CLOUD_NAME"),
@@ -8,10 +10,13 @@ cloudinary.config({
   api_secret: config.get("CLOUDINARY_API_SECRET"),
 });
 
-const storage = new CloudinaryStorage({
-   cloudinary,
+export const storage = new CloudinaryStorage({
+   cloudinary:cloudinary,
    params:{
-      // folder:"tourist-spots",
+      folder:"tourists-spots",
+      allowedFormats:['jpeg','jpg','png']
    }
-   
+
 })
+
+export default cloudinary
