@@ -11,18 +11,23 @@ interface User {
   email: string;
   _id: string;
 }
-interface Image{
-   url:string,
-   filename:string
+interface Image {
+  url: string;
+  filename: string;
 }
 export interface SpotDocument {
   title: string;
   description: string;
   location: string;
-  images: Image[]
+  images: Image[];
   reviews: ReviewDocument[];
   _id: string;
   user: User;
+}
+
+interface UpdateFormData {
+  formData: FormData;
+  _id: string;
 }
 
 export const spotsApiSlice = createApi({
@@ -45,14 +50,11 @@ export const spotsApiSlice = createApi({
         body: data,
       }),
     }),
-    updateSpot: builder.mutation<
-      SpotDocument,
-      Omit<SpotDocument, "reviews" | "user">
-    >({
-      query: ({ _id, ...data }) => ({
+    updateSpot: builder.mutation<SpotDocument, UpdateFormData>({
+      query: ({ _id, formData }) => ({
         url: `/spots/${_id}`,
         method: "PUT",
-        body: data,
+        body: formData,
       }),
     }),
     deleteSpot: builder.mutation<void, string | undefined>({

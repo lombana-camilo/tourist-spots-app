@@ -45,27 +45,34 @@ export const createSpotHandler = async (
   res: Response
 ) => {
   const userId = res.locals.user._id;
-  if (req.files && req.files.length > 0) {
-    const multerFiles = (req as MulterRequest).files;
-      console.log({multerFiles})
-    const images = multerFiles.map((file) => {
-      return { url: file.path, filename: file.filename };
-    });
-    const newSpot = await createSpot({
-      ...req.body,
-      images,
-      user: userId,
-      reviews: [],
-    });
-    return res.send(newSpot);
+  if (req.files && !req.files.length) {
+    return res.sendStatus(400);
   }
-  return res.sendStatus(404);
+  const multerFiles = (req as MulterRequest).files;
+  // console.log({ multerFiles });
+  const images = multerFiles.map((file) => {
+    return { url: file.path, filename: file.filename };
+  });
+  const newSpot = await createSpot({
+    ...req.body,
+    images,
+    user: userId,
+    reviews: [],
+  });
+  return res.send(newSpot);
 };
 
 export const updateSpotHandler = async (
   req: Request<UpdateSpotType["params"], {}, UpdateSpotType["body"]>,
   res: Response
 ) => {
+
+  if (req.files && !req.files.length) {
+    return res.sendStatus(400);
+  }
+  const multerFiles = (req as MulterRequest).files;
+   console.log("body",req.body)
+  console.log({ multerFiles });
   //Get user _id
   const userId = res.locals.user._id;
   //Find Spot to update
@@ -81,7 +88,12 @@ export const updateSpotHandler = async (
       .send("You do not have permission to update this spot!");
   }
   //Update spot data
+  const newImages = multerFiles.map((file) => {
+    return { url: file.path, filename: file.filename };
+  });
   const updated = await updateSpot({ _id: spotId }, req.body, { new: true });
+   updated?.images.push(...newImages)
+   updated?.save()
   return res.send(updated);
 };
 

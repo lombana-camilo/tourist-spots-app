@@ -15,20 +15,21 @@ import {
 } from "./../controllers/spot.controller";
 import requireUser from "./../middleware/requireUser";
 import reviews from "./review.route";
-
 const spots = Router();
-
-spots.get("/all", getSpotsHandler);
-spots
-  .route("/:spotId")
-  .get(validateRequest(findSpotSchema), findSpotHandler)
-  .put([requireUser, validateRequest(updateSpotSchema)], updateSpotHandler)
-  .delete([requireUser, validateRequest(deleteSpotSchema)], deleteSpotHandler);
 
 // File Upload
 
 import multer from "multer";
 import { storage } from "./../utils/cloudinary";
+const upload = multer({ storage: storage });
+
+spots.get("/all", getSpotsHandler);
+spots
+  .route("/:spotId")
+  .get(validateRequest(findSpotSchema), findSpotHandler)
+  .put([requireUser,upload.array("images"), validateRequest(updateSpotSchema)], updateSpotHandler)
+  .delete([requireUser, validateRequest(deleteSpotSchema)], deleteSpotHandler);
+
 
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -39,7 +40,6 @@ import { storage } from "./../utils/cloudinary";
 //   },
 // });
 
-const upload = multer({ storage: storage });
 spots.post(
   "/",
   [requireUser, upload.array("images"), validateRequest(createSpotSchema)],

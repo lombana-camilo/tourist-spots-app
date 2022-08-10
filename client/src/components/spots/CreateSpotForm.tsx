@@ -14,7 +14,7 @@ export const CreateSpotForm = () => {
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
-    image: custom(),
+    images: custom(),
     description: string({ required_error: "Description is required" }).min(
       20,
       "Minumum 20 chars required"
@@ -43,11 +43,11 @@ export const CreateSpotForm = () => {
       formData.append("location", values.location);
       formData.append("description", values.description);
 
-      for (let i = 0; i < values.image.length; i++) {
-        formData.append("images", values.image[i]);
+      for (let i = 0; i < values.images.length; i++) {
+        formData.append("images", values.images[i]);
       }
 
-      console.log("images", values.image);
+      console.log("images", values.images);
       const newSpot = await createSpot(formData).unwrap();
       navigate(`/spots/${newSpot._id}`);
       dispatch(
@@ -69,8 +69,6 @@ export const CreateSpotForm = () => {
         Create new spot
       </Typography>
       <form
-        // action="http://localhost:4000/spots"
-        // method="POST"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         encType="multipart/form-data"
@@ -93,11 +91,10 @@ export const CreateSpotForm = () => {
             error={!!errors.location}
             helperText={errors.location?.message}
           />
-          {/* <Button variant="contained" component="label" color="primary"> */}
-          {/* Upload a file */}
-          {/* <input type="file" name="image" onChange={handleUpload} /> */}
-          <input type="file" {...register("image")} multiple />
-          {/* </Button> */}
+          <Button variant="outlined" component="label" color="primary">
+          Upload a file
+          <input type="file" {...register("images")} multiple hidden />
+          </Button>
           <TextField
             label="description"
             multiline

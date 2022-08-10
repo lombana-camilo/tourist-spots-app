@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf } from "zod";
+import { custom, object, string, TypeOf } from "zod";
 import { useState } from "react";
 import {
   SpotDocument,
@@ -18,13 +18,13 @@ export const UpdateSpotForm = () => {
   const createSpotSchema = object({
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
-    image: string().min(1, "Image is required"),
+    images: custom(),
     description: string({ required_error: "Description is required" }).min(
       15,
       "Minumum 15 chars required"
     ),
   });
-  type CreateSpotType = TypeOf<typeof createSpotSchema>;
+  type UpdateSpotType = TypeOf<typeof createSpotSchema>;
   type LocationState = {
     state: SpotDocument;
   };
@@ -35,15 +35,31 @@ export const UpdateSpotForm = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<CreateSpotType>({ resolver: zodResolver(createSpotSchema) });
+  } = useForm<UpdateSpotType>({ resolver: zodResolver(createSpotSchema) });
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [updateSpot] = useUpdateSpotMutation();
 
-  const onSubmit = async (values: CreateSpotType) => {
+  const onSubmit = async (values: UpdateSpotType) => {
     try {
-      const updated = await updateSpot({ ...values, _id: spot._id }).unwrap();
+      //Set image
+      console.log({ values });
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("location", values.location);
+      formData.append("description", values.description);
+
+      for (let i = 0; i < values.images.length; i++) {
+        formData.append("images", values.images[i]);
+      }
+
+      console.log("images", values.images);
+      // console.log(formData.getAll('images'));
+      const updated = await updateSpot({
+        _id: spot._id,
+        formData,
+      }).unwrap();
       navigate(`/spots/${updated._id}`);
       dispatch(
         setSnackBar({
@@ -68,7 +84,11 @@ export const UpdateSpotForm = () => {
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Update Form
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        encType="multipart/form-data"
+      >
         <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
           <TextField
             label="title"
@@ -89,15 +109,8 @@ export const UpdateSpotForm = () => {
             error={!!errors.location}
             helperText={errors.location?.message}
           />
-          <TextField
-            label="image"
-            defaultValue={spot.image}
-            fullWidth
-            required
-            {...register("image")}
-            error={!!errors.image}
-            helperText={errors.image?.message}
-          />
+          <label htmlFor="images">Update Images</label>
+          <input id="images" type="file" {...register("images")} multiple />
           <TextField
             label="description"
             defaultValue={spot.description}
