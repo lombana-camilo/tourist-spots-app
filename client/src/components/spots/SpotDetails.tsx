@@ -20,6 +20,10 @@ import { setSnackBar } from "../../store/notifications/notificationsSlice";
 import { ReviewForm } from "../reviews/ReviewForm";
 import { ReviewsList } from "../reviews/ReviewsList";
 import { NotFound } from "./NotFound";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css"
+import { Navigation } from "swiper";
+import "swiper/css/navigation"
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,18 +72,24 @@ export const SpotDetails = () => {
       sx={{
         display: "flex",
         mx: "auto",
-        width: "60%",
+        width: "80%",
         height: "100%",
       }}
     >
       <Card variant="outlined" sx={{ width: "100%" }}>
         <Grid item md={8}>
-          <CardMedia
-            component="img"
-            height="220"
-            image={spotData.image}
-            sx={{ objectFit: "fill" }}
-          />
+          <Swiper modules={[Navigation]} navigation loop>
+            {spotData.images.map((i,key) => (
+              <SwiperSlide key={key}>
+                <CardMedia
+                  component="img"
+                  height="400"
+                  image={i.url}
+                  sx={{ objectFit: "fill" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Grid>
         <Grid item md={4}>
           <CardContent>

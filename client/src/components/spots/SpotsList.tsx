@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchSpotsQuery } from "../../store/api/spotsApiSlice";
 import { NotFound } from "./NotFound";
 
-export const Spots = () => {
+export const SpotsList = () => {
   const { data, isLoading, isSuccess, refetch } = useFetchSpotsQuery();
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export const Spots = () => {
               <CardMedia
                 component="img"
                 height="220"
-                image={spot.image}
+                image={spot.images[0].url}
                 sx={{ objectFit: "fill" }}
               />
             </Grid>

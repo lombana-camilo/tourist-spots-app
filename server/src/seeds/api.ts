@@ -37,7 +37,7 @@ const filterData = async (admin: any) => {
         title: spot.name,
         description: spot.description,
         location: spot.location_string,
-        image: spot.photo.images.original.url,
+        images: [{ url: spot.photo.images.original.url, filename: spot.name }],
         reviews: [],
         user: admin,
       };

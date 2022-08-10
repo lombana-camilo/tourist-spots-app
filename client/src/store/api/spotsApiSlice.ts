@@ -11,11 +11,15 @@ interface User {
   email: string;
   _id: string;
 }
+interface Image{
+   url:string,
+   filename:string
+}
 export interface SpotDocument {
   title: string;
   description: string;
   location: string;
-  images: FormData[];
+  images: Image[]
   reviews: ReviewDocument[];
   _id: string;
   user: User;

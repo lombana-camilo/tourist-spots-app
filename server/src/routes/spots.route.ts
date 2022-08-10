@@ -28,7 +28,6 @@ spots
 // File Upload
 
 import multer from "multer";
-import path from "path";
 import { storage } from "./../utils/cloudinary";
 
 // const storage = multer.diskStorage({
@@ -46,12 +45,6 @@ spots.post(
   [requireUser, upload.array("images"), validateRequest(createSpotSchema)],
   createSpotHandler
 );
-
-// spots.post(
-//   "/",
-//   [requireUser, validateRequest(createSpotSchema)],
-//   createSpotHandler
-// );
 
 //Reviews
 spots.use("/:spotId/reviews", reviews);

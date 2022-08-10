@@ -49,7 +49,7 @@ export const CreateSpotForm = () => {
 
       console.log("images", values.image);
       const newSpot = await createSpot(formData).unwrap();
-      // navigate(`/spots/${newSpot._id}`);
+      navigate(`/spots/${newSpot._id}`);
       dispatch(
         setSnackBar({
           snackBarOpen: true,
