@@ -40,13 +40,12 @@ import { storage } from "./../utils/cloudinary";
 //   },
 // });
 
-const upload = multer({storage:storage});
-spots.post("/", upload.array("image"), (req: Request, res: Response) => {
-  console.log("body",req.body);
-  console.log("files",req.files);
-  console.log("file",req.file);
-  res.json(req.file);
-});
+const upload = multer({ storage: storage });
+spots.post(
+  "/",
+  [requireUser, upload.array("images"), validateRequest(createSpotSchema)],
+  createSpotHandler
+);
 
 // spots.post(
 //   "/",

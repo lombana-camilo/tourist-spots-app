@@ -15,7 +15,7 @@ export interface SpotDocument {
   title: string;
   description: string;
   location: string;
-  image: File | FormData;
+  images: FormData[];
   reviews: ReviewDocument[];
   _id: string;
   user: User;
@@ -25,7 +25,7 @@ export const spotsApiSlice = createApi({
   reducerPath: "spotsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_APP_SERVER_ENDPOINT,
-    credentials: "include"
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     fetchSpots: builder.query<SpotDocument[], void>({
@@ -34,9 +34,7 @@ export const spotsApiSlice = createApi({
     findSpot: builder.query<SpotDocument, string | undefined>({
       query: (id) => `/spots/${id}`,
     }),
-    createSpot: builder.mutation
-      // < SpotDocument, Omit<SpotDocument, "_id" | "reviews" | "user"> >
-   ({
+    createSpot: builder.mutation<SpotDocument, FormData>({
       query: (data) => ({
         url: `/spots`,
         method: "POST",

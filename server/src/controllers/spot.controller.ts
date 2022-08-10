@@ -37,21 +37,29 @@ export const findSpotHandler = async (
   }
 };
 
+interface MulterRequest extends Request {
+  files: Express.Multer.File[];
+}
 export const createSpotHandler = async (
   req: Request<{}, {}, CreateSpotType["body"]>,
   res: Response
 ) => {
   const userId = res.locals.user._id;
-  if (req.file) {
+  if (req.files && req.files.length > 0) {
+    const multerFiles = (req as MulterRequest).files;
+      console.log({multerFiles})
+    const images = multerFiles.map((file) => {
+      return { url: file.path, filename: file.filename };
+    });
     const newSpot = await createSpot({
       ...req.body,
-      image: req.file,
+      images,
       user: userId,
       reviews: [],
     });
     return res.send(newSpot);
   }
-   return res.sendStatus(404)
+  return res.sendStatus(404);
 };
 
 export const updateSpotHandler = async (

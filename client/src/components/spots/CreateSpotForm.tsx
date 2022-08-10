@@ -44,10 +44,10 @@ export const CreateSpotForm = () => {
       formData.append("description", values.description);
 
       for (let i = 0; i < values.image.length; i++) {
-        formData.append("image", values.image[i]);
+        formData.append("images", values.image[i]);
       }
 
-      console.log("image", values.image);
+      console.log("images", values.image);
       const newSpot = await createSpot(formData).unwrap();
       // navigate(`/spots/${newSpot._id}`);
       dispatch(

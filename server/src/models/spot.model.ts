@@ -7,6 +7,11 @@ import {
 import { Review } from "./review.model";
 import { User } from "./users.models";
 
+interface ImagesDocument {
+   url:string
+   filename:string
+}
+
 @modelOptions({ schemaOptions: { timestamps: false, versionKey: false } })
 export class Spot {
   @prop({ ref: () => User })
@@ -22,7 +27,7 @@ export class Spot {
   location: string;
 
   @prop({ required: true })
-  image: object;
+  images: ImagesDocument[];
 
   @prop({ ref: () => Review })
   reviews: Ref<Review>[];
