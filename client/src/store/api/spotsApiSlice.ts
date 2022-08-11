@@ -19,7 +19,7 @@ export interface SpotDocument {
   title: string;
   description: string;
   location: string;
-  images: Image[];
+  images: Image[] | [];
   reviews: ReviewDocument[];
   _id: string;
   user: User;

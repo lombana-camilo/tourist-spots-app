@@ -4,10 +4,9 @@ import { custom, object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Input, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
-import { get } from "lodash";
 
 export const CreateSpotForm = () => {
   // Zod Schema
@@ -91,10 +90,6 @@ export const CreateSpotForm = () => {
             error={!!errors.location}
             helperText={errors.location?.message}
           />
-          <Button variant="outlined" component="label" color="primary">
-          Upload a file
-          <input type="file" {...register("images")} multiple hidden />
-          </Button>
           <TextField
             label="description"
             multiline
@@ -105,6 +100,10 @@ export const CreateSpotForm = () => {
             error={!!errors.description}
             helperText={errors.description?.message}
           />
+          <Button variant="outlined" component="label" color="primary">
+          Upload Images
+          <input type="file" {...register("images")}  multiple hidden/>
+          </Button>
           <Button variant="contained" color="success" fullWidth type="submit">
             Create Spot
           </Button>

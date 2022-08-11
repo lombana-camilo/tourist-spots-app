@@ -1,16 +1,36 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { custom, object, string, TypeOf } from "zod";
-import { useState } from "react";
+import {
+  array,
+  custom,
+  object,
+  optional,
+  string,
+  TypeOf,
+  undefined,
+  union,
+} from "zod";
 import {
   SpotDocument,
   useUpdateSpotMutation,
 } from "../../store/api/spotsApiSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardMedia,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 import { useAppDispatch } from "../../store/hooks";
+import { useState } from "react";
 
 export const UpdateSpotForm = () => {
   // Zod Schema
@@ -19,6 +39,7 @@ export const UpdateSpotForm = () => {
     title: string().min(1, "Title is required"),
     location: string().min(1, "Location is required"),
     images: custom(),
+    deleteImages: custom(),
     description: string({ required_error: "Description is required" }).min(
       15,
       "Minumum 15 chars required"
@@ -41,6 +62,7 @@ export const UpdateSpotForm = () => {
   const dispatch = useAppDispatch();
   const [updateSpot] = useUpdateSpotMutation();
 
+  console.log({ errors });
   const onSubmit = async (values: UpdateSpotType) => {
     try {
       //Set image
@@ -50,8 +72,20 @@ export const UpdateSpotForm = () => {
       formData.append("location", values.location);
       formData.append("description", values.description);
 
-      for (let i = 0; i < values.images.length; i++) {
-        formData.append("images", values.images[i]);
+      if (!values.images.length) {
+        values.images = [];
+      } else {
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("images[]", values.images[i]);
+        }
+      }
+
+      if (!values.deleteImages.length) {
+        values.deleteImages = [];
+      } else {
+        for (let i = 0; i < values.deleteImages.length; i++) {
+          formData.append("deleteImages[]", values.deleteImages[i]);
+        }
       }
 
       console.log("images", values.images);
@@ -109,8 +143,6 @@ export const UpdateSpotForm = () => {
             error={!!errors.location}
             helperText={errors.location?.message}
           />
-          <label htmlFor="images">Update Images</label>
-          <input id="images" type="file" {...register("images")} multiple />
           <TextField
             label="description"
             defaultValue={spot.description}
@@ -122,6 +154,35 @@ export const UpdateSpotForm = () => {
             error={!!errors.description}
             helperText={errors.description?.message}
           />
+          <Button variant="outlined" component="label" color="primary">
+            Add more Images
+            <input type="file" {...register("images")} multiple hidden />
+          </Button>
+
+          <Grid container>
+            {spot.images.map((img) => (
+              <Card key={img.url} sx={{ mb: 3, display: "flex" }}>
+                <Grid item md={8}>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={img.url}
+                    sx={{ objectFit: "fill" }}
+                  />
+                </Grid>
+                <CardActions>
+                  <FormControlLabel
+                    label="Delete?"
+                    {...register("deleteImages")}
+                    control={
+                      <Checkbox name="deleteImages[]" value={img.filename} />
+                    }
+                  />
+                </CardActions>
+              </Card>
+            ))}
+          </Grid>
+
           <Button variant="contained" color="info" fullWidth type="submit">
             Update
           </Button>

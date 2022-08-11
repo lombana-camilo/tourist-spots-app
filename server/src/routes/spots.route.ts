@@ -27,7 +27,7 @@ spots.get("/all", getSpotsHandler);
 spots
   .route("/:spotId")
   .get(validateRequest(findSpotSchema), findSpotHandler)
-  .put([requireUser,upload.array("images"), validateRequest(updateSpotSchema)], updateSpotHandler)
+  .put([requireUser,upload.array("images") ], updateSpotHandler)
   .delete([requireUser, validateRequest(deleteSpotSchema)], deleteSpotHandler);
 
 

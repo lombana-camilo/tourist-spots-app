@@ -9,6 +9,7 @@ const payload = {
       "Description should be at least 20 chars long"
     ),
     location: string({ required_error: "Location is required" }),
+    deleteImages: array(string()),
   }),
 };
 
