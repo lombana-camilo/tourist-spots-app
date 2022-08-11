@@ -1,14 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  array,
   custom,
   object,
-  optional,
   string,
   TypeOf,
-  undefined,
-  union,
 } from "zod";
 import {
   SpotDocument,
@@ -30,7 +26,6 @@ import {
 } from "@mui/material";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 import { useAppDispatch } from "../../store/hooks";
-import { useState } from "react";
 
 export const UpdateSpotForm = () => {
   // Zod Schema
@@ -62,7 +57,6 @@ export const UpdateSpotForm = () => {
   const dispatch = useAppDispatch();
   const [updateSpot] = useUpdateSpotMutation();
 
-  console.log({ errors });
   const onSubmit = async (values: UpdateSpotType) => {
     try {
       //Set image
@@ -76,7 +70,7 @@ export const UpdateSpotForm = () => {
         values.images = [];
       } else {
         for (let i = 0; i < values.images.length; i++) {
-          formData.append("images[]", values.images[i]);
+          formData.append("images", values.images[i]);
         }
       }
 
@@ -89,7 +83,6 @@ export const UpdateSpotForm = () => {
       }
 
       console.log("images", values.images);
-      // console.log(formData.getAll('images'));
       const updated = await updateSpot({
         _id: spot._id,
         formData,

@@ -1,5 +1,4 @@
-import { any, array, custom, object, string, TypeOf, z } from "zod";
-import { Express  } from "express";
+import { array, object, string, TypeOf } from "zod";
 
 const payload = {
   body: object({
@@ -9,31 +8,9 @@ const payload = {
       "Description should be at least 20 chars long"
     ),
     location: string({ required_error: "Location is required" }),
-    deleteImages: array(string()),
+    deleteImages: array(string()).optional()
   }),
 };
-
-// interface ImageDocument {
-//    // [ file:string ]:Express.Multer.File[]
-//     fieldname: string
-//     originalname: string
-//     encoding: string
-//     mimetype: string
-//     path: string
-//     size: number
-//     filename: string
-// }
-//
-// interface Images {
-//    files:Express.Multer.File[]
-// }
-//
-// const images={
-//    // files:z.ZodType<Express.Multer.File>
-//    // files:z.ZodType<Images>
-//    files:array(object({}))
-// }
-
 
 const params = {
   params: object({
@@ -41,7 +18,7 @@ const params = {
   }),
 };
 
-export const createSpotSchema = object({ ...payload });
+export const createSpotSchema = object({ ...payload});
 export const updateSpotSchema = object({ ...payload, ...params });
 export const findSpotSchema = object({ ...params });
 export const deleteSpotSchema = object({ ...params });

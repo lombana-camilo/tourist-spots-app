@@ -18,7 +18,6 @@ import reviews from "./review.route";
 const spots = Router();
 
 // File Upload
-
 import multer from "multer";
 import { storage } from "./../utils/cloudinary";
 const upload = multer({ storage: storage });
@@ -27,18 +26,8 @@ spots.get("/all", getSpotsHandler);
 spots
   .route("/:spotId")
   .get(validateRequest(findSpotSchema), findSpotHandler)
-  .put([requireUser,upload.array("images") ], updateSpotHandler)
+  .put([requireUser,upload.array("images"), validateRequest(updateSpotSchema)], updateSpotHandler)
   .delete([requireUser, validateRequest(deleteSpotSchema)], deleteSpotHandler);
-
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, path.join(__dirname,"./../uploads"));
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
 
 spots.post(
   "/",

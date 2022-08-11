@@ -1,6 +1,7 @@
 import console from "console";
 import { Request, Response } from "express";
 import { get } from "lodash";
+import cloudinary from "./../utils/cloudinary";
 import ReviewModel from "./../models/review.model";
 import {
   CreateSpotType,
@@ -49,7 +50,8 @@ export const createSpotHandler = async (
     return res.sendStatus(400);
   }
   const multerFiles = (req as MulterRequest).files;
-  // console.log({ multerFiles });
+  console.log({ multerFiles });
+  console.log("body",req.body);
   const images = multerFiles.map((file) => {
     return { url: file.path, filename: file.filename };
   });
@@ -96,6 +98,10 @@ export const updateSpotHandler = async (
     await updated?.updateOne({
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
     });
+    //Delete from cloudinary
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
   }
   return res.send(updated);
 };
@@ -124,5 +130,9 @@ export const deleteSpotHandler = async (
 
   //Delete Reviews' associations
   await ReviewModel.deleteMany({ spotId });
+  //Delete spot images from cloudinary
+  spot.images.forEach(async (img) => {
+    await cloudinary.uploader.destroy(img.filename);
+  });
   return res.send(deleted);
 };
