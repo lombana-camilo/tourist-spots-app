@@ -4,6 +4,8 @@ const { DB_NAME, DB_HOST, API_KEY, API_HOST, PRIVATE_KEY } = process.env;
 //Cloudinary
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY } =
   process.env;
+//MapBox
+const mapBoxToken = process.env.MAPBOX_TOKEN;
 const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 
 export default {
@@ -30,4 +32,7 @@ XhIrqMWGtkuXzEc/CQIDAQAB
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
   CLOUDINARY_CLOUD_NAME,
+
+  //MapBox
+  mapBoxToken,
 };

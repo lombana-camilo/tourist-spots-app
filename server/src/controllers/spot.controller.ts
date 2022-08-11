@@ -16,6 +16,7 @@ import {
   getSpots,
   updateSpot,
 } from "./../services/spot.service";
+import { geoCoder } from "./../utils/mapbox";
 
 export const getSpotsHandler = async (_: Request, res: Response) => {
   try {
@@ -45,19 +46,29 @@ export const createSpotHandler = async (
   req: Request<{}, {}, CreateSpotType["body"]>,
   res: Response
 ) => {
+  //MapBox
+  const geoData = await geoCoder
+    .forwardGeocode({
+      query: req.body.location,
+      limit: 1,
+    })
+    .send();
+   if (!geoData.body.features.length){return res.status(400).send("Please enter a valid location")}
+
   const userId = res.locals.user._id;
   if (req.files && !req.files.length) {
     return res.sendStatus(400);
   }
   const multerFiles = (req as MulterRequest).files;
-  console.log({ multerFiles });
-  console.log("body",req.body);
+  // console.log({ multerFiles });
+  // console.log("body",req.body);
   const images = multerFiles.map((file) => {
     return { url: file.path, filename: file.filename };
   });
   const newSpot = await createSpot({
     ...req.body,
     images,
+    geometry: geoData.body.features[0].geometry,
     user: userId,
     reviews: [],
   });

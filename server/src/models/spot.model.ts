@@ -12,6 +12,11 @@ interface ImagesDocument {
    filename:string
 }
 
+interface Geometry{
+   type:"Point",
+   coordinates:number[]
+}
+
 @modelOptions({ schemaOptions: { timestamps: false, versionKey: false } })
 export class Spot {
   @prop({ ref: () => User })
@@ -25,6 +30,9 @@ export class Spot {
 
   @prop({ required: true })
   location: string;
+
+  @prop({ required: true })
+  geometry: Geometry;
 
   @prop({ required: true })
   images: ImagesDocument[];
