@@ -29,7 +29,6 @@ export const CreateSpotForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [createSpotError, setCreateSpotError] = useState("");
   const [createSpot] = useCreateSpotMutation();
 
   // console.log({ errors });
@@ -42,8 +41,12 @@ export const CreateSpotForm = () => {
       formData.append("location", values.location);
       formData.append("description", values.description);
 
-      for (let i = 0; i < values.images.length; i++) {
-        formData.append("images", values.images[i]);
+      if (!values.images.length) {
+          formData.append("images[]", "");
+      } else {
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("images", values.images[i]);
+        }
       }
 
       console.log("images", values.images);
@@ -57,8 +60,13 @@ export const CreateSpotForm = () => {
         })
       );
     } catch (e: any) {
-      console.log(e);
-      setCreateSpotError(e.data || e.status);
+      dispatch(
+        setSnackBar({
+          snackBarOpen: true,
+          snackBarType: "warning",
+          snackBarMessage: e.data || e.status,
+        })
+      );
     }
   };
 
@@ -101,13 +109,12 @@ export const CreateSpotForm = () => {
             helperText={errors.description?.message}
           />
           <Button variant="outlined" component="label" color="primary">
-          Upload Images
-          <input type="file" {...register("images")}  multiple hidden/>
+            Upload Images
+            <input type="file" {...register("images")} multiple hidden />
           </Button>
           <Button variant="contained" color="success" fullWidth type="submit">
             Create Spot
           </Button>
-          <Typography color="error">{createSpotError}</Typography>
         </Box>
       </form>
     </Box>

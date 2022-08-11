@@ -31,7 +31,7 @@ export const SpotsList = () => {
               <CardMedia
                 component="img"
                 height="220"
-                image={spot.images[0].url}
+                image={spot.images.length ? spot.images[0].url: ""}
                 sx={{ objectFit: "fill" }}
               />
             </Grid>

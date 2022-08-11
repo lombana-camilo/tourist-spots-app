@@ -1,8 +1,7 @@
-import { Button, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import Map, { Marker } from "react-map-gl";
 import { SpotDocument } from "../../store/api/spotsApiSlice";
-// import 'mapbox-gl/dist/mapbox-gl.css';
+import PlaceIcon from '@mui/icons-material/Place';
 
 export const MapBox: FC<{ spot: SpotDocument }> = ({ spot }) => {
   const [viewport, setViewport] = useState({
@@ -10,7 +9,6 @@ export const MapBox: FC<{ spot: SpotDocument }> = ({ spot }) => {
     longitude: spot.geometry.coordinates[0],
     zoom: 10,
   });
-  console.log(viewport);
 
   return (
     <Map
@@ -25,7 +23,7 @@ export const MapBox: FC<{ spot: SpotDocument }> = ({ spot }) => {
         longitude={spot.geometry.coordinates[0]}
         anchor="bottom"
       >
-        <Button>spot</Button>
+            <PlaceIcon color="error"/>
       </Marker>
     </Map>
   );

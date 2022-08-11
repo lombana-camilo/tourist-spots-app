@@ -1,11 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  custom,
-  object,
-  string,
-  TypeOf,
-} from "zod";
+import { custom, object, string, TypeOf } from "zod";
 import {
   SpotDocument,
   useUpdateSpotMutation,
@@ -66,23 +61,22 @@ export const UpdateSpotForm = () => {
       formData.append("location", values.location);
       formData.append("description", values.description);
 
-      if (!values.images.length) {
-        values.images = [];
-      } else {
-        for (let i = 0; i < values.images.length; i++) {
+      if (values.images.length !== 0) {
+        for (let i = 0; i < values.images?.length; i++) {
           formData.append("images", values.images[i]);
         }
       }
 
-      if (!values.deleteImages.length) {
-        values.deleteImages = [];
-      } else {
+      //deleteimages returns [0,1,many]=>[false,string,[]] respectively
+      if (values.deleteImages) {
+        if (typeof values.deleteImages === "string") {
+          values.deleteImages = [values.deleteImages];
+        }
         for (let i = 0; i < values.deleteImages.length; i++) {
           formData.append("deleteImages[]", values.deleteImages[i]);
         }
       }
 
-      console.log("images", values.images);
       const updated = await updateSpot({
         _id: spot._id,
         formData,
@@ -96,11 +90,12 @@ export const UpdateSpotForm = () => {
         })
       );
     } catch (e: any) {
+      console.log({ e });
       dispatch(
         setSnackBar({
           snackBarOpen: true,
           snackBarType: "warning",
-          snackBarMessage: e.data || e.status,
+          snackBarMessage: e.data || e.status || e.message,
         })
       );
     }

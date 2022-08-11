@@ -38,6 +38,10 @@ const filterData = async (admin: any) => {
         description: spot.description,
         location: spot.location_string,
         images: [{ url: spot.photo.images.original.url, filename: spot.name }],
+        geometry: {
+          type: "Point",
+          coordinates: [Number(spot.longitude), Number(spot.latitude)],
+        },
         reviews: [],
         user: admin,
       };

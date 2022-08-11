@@ -56,9 +56,6 @@ export const createSpotHandler = async (
    if (!geoData.body.features.length){return res.status(400).send("Please enter a valid location")}
 
   const userId = res.locals.user._id;
-  if (req.files && !req.files.length) {
-    return res.sendStatus(400);
-  }
   const multerFiles = (req as MulterRequest).files;
   // console.log({ multerFiles });
   // console.log("body",req.body);
