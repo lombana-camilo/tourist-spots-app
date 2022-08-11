@@ -15,11 +15,16 @@ interface Image {
   url: string;
   filename: string;
 }
+interface Geometry {
+  type: "Point";
+  coordinates: number[];
+}
 export interface SpotDocument {
   title: string;
   description: string;
   location: string;
   images: Image[] | [];
+  geometry: Geometry;
   reviews: ReviewDocument[];
   _id: string;
   user: User;

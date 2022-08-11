@@ -21,9 +21,10 @@ import { ReviewForm } from "../reviews/ReviewForm";
 import { ReviewsList } from "../reviews/ReviewsList";
 import { NotFound } from "./NotFound";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"
+import "swiper/css";
 import { Navigation } from "swiper";
-import "swiper/css/navigation"
+import "swiper/css/navigation";
+import { MapBox } from "../map/Map";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -79,7 +80,7 @@ export const SpotDetails = () => {
       <Card variant="outlined" sx={{ width: "100%" }}>
         <Grid item md={8}>
           <Swiper modules={[Navigation]} navigation loop>
-            {spotData.images.map((i,key) => (
+            {spotData.images.map((i, key) => (
               <SwiperSlide key={key}>
                 <CardMedia
                   component="img"
@@ -127,15 +128,10 @@ export const SpotDetails = () => {
       </Card>
 
       <Card variant="outlined" sx={{ width: "100%" }}>
-        <Grid item md={4}>
-          <CardMedia
-            component="img"
-            height="220"
-            // image={data.image}
-            sx={{ objectFit: "fill" }}
-          />
+        <Grid item md={6}>
+          <MapBox spot={spotData}/>
         </Grid>
-        <Grid item md={8}>
+        <Grid item md={6}>
           <CardContent>
             {resultsUser.isSuccess && <ReviewForm spot={spotData} />}
             <ReviewsList spot={spotData} />
