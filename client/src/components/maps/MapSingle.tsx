@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Map, { Marker, Popup } from "react-map-gl";
+import Map, { Marker, NavigationControl, Popup } from "react-map-gl";
 import { SpotDocument } from "../../store/api/spotsApiSlice";
 import PlaceIcon from "@mui/icons-material/Place";
 import { Button, Typography } from "@mui/material";
@@ -38,9 +38,12 @@ export const MapSingle: FC<{ spot: SpotDocument }> = ({ spot }) => {
           closeOnClick={false}
           onClose={() => setIsSelected(false)}
         >
-          <Typography variant="h6" fontSize={14}>{spot.title}</Typography>
+          <Typography variant="h6" fontSize={14}>
+            {spot.title}
+          </Typography>
         </Popup>
       )}
+      <NavigationControl />
     </Map>
   );
 };

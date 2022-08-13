@@ -4,7 +4,7 @@ import { custom, object, string, TypeOf } from "zod";
 import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
@@ -71,7 +71,7 @@ export const CreateSpotForm = () => {
   };
 
   return (
-    <Box>
+    <Container maxWidth="md">
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         Create new spot
       </Typography>
@@ -117,6 +117,6 @@ export const CreateSpotForm = () => {
           </Button>
         </Box>
       </form>
-    </Box>
+    </Container>
   );
 };

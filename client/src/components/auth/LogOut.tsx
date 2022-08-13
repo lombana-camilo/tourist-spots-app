@@ -20,8 +20,8 @@ export const LogOut = () => {
       dispatch(
         setSnackBar({
           snackBarOpen: true,
-          snackBarType: "warning",
-          snackBarMessage: "Successfully loged out!"
+          snackBarType: "success",
+          snackBarMessage: "Successfully logged out!"
         })
       );
       } catch (e) {

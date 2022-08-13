@@ -6,9 +6,11 @@ import deserializeUser from "./middleware/deserializeUser"
 import cookieParser from "cookie-parser"
 import morgan from "morgan"
 import path from "path"
+import mongoSanitize from "express-mongo-sanitize"
 const server = express()
 
 //middleware
+server.use(mongoSanitize())
 server.use(express.urlencoded({ extended: true }))
 server.use(express.json())
 server.use(morgan('tiny'))

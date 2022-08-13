@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from "react";
 import PlaceIcon from "@mui/icons-material/Place";
-import { Map, Source, Layer, Marker, Popup } from "react-map-gl";
+import { Map, Source, Layer, Marker, Popup, NavigationControl } from "react-map-gl";
 
 import {
   clusterLayer,
@@ -99,6 +99,7 @@ export const MapCluster: FC<{ spots: SpotDocument[] }> = ({ spots }) => {
             <Typography fontSize={17}>{popupInfo.description.substring(0,45)}...</Typography>
           </Popup>
         )}
+            <NavigationControl/>
 
         <Source
           id="spots"

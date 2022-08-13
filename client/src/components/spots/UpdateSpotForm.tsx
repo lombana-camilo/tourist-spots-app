@@ -104,7 +104,7 @@ export const UpdateSpotForm = () => {
   return (
     <Container maxWidth="md">
       <Typography variant="h4" fontWeight="bold" gutterBottom>
-        Update Form
+        Update Spot
       </Typography>
       <form
         onSubmit={handleSubmit(onSubmit)}

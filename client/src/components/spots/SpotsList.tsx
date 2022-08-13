@@ -25,9 +25,9 @@ export const SpotsList = () => {
   ) : isSuccess ? (
     <>
       <MapCluster spots={data}/>
-      <Grid container direction="column">
+      <Grid container direction="column" sx={{mt:2}}>
         {data.map((spot) => (
-          <Card key={spot._id} sx={{ mb: 3, display: "flex" }}>
+          <Card key={spot._id} sx={{ mb: 3,  display: "flex" }}>
             <Grid item md={4}>
               <CardMedia
                 component="img"
