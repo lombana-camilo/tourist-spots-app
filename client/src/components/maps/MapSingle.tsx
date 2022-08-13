@@ -4,7 +4,7 @@ import { SpotDocument } from "../../store/api/spotsApiSlice";
 import PlaceIcon from "@mui/icons-material/Place";
 import { Button, Typography } from "@mui/material";
 
-export const MapBox: FC<{ spot: SpotDocument }> = ({ spot }) => {
+export const MapSingle: FC<{ spot: SpotDocument }> = ({ spot }) => {
   const [viewport, setViewport] = useState({
     latitude: spot.geometry.coordinates[1],
     longitude: spot.geometry.coordinates[0],

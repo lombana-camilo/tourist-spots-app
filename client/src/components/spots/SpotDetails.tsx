@@ -24,7 +24,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper";
 import "swiper/css/navigation";
-import { MapBox } from "../map/Map";
+import { MapSingle} from "../maps/MapSingle";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -129,7 +129,7 @@ export const SpotDetails = () => {
 
       <Card variant="outlined" sx={{ width: "100%" }}>
         <Grid item md={6}>
-          <MapBox spot={spotData}/>
+          <MapSingle spot={spotData}/>
         </Grid>
         <Grid item md={6}>
           <CardContent>

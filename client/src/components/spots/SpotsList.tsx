@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchSpotsQuery } from "../../store/api/spotsApiSlice";
+import { MapCluster } from "../maps/MapCluster";
 import { NotFound } from "./NotFound";
 
 export const SpotsList = () => {
@@ -23,6 +24,7 @@ export const SpotsList = () => {
     <Typography>Loading...</Typography>
   ) : isSuccess ? (
     <>
+      <MapCluster spots={data}/>
       <Typography variant="h3">Lists of Spots</Typography>
       <Grid container direction="column">
         {data.map((spot) => (
@@ -31,7 +33,7 @@ export const SpotsList = () => {
               <CardMedia
                 component="img"
                 height="220"
-                image={spot.images.length ? spot.images[0].url: ""}
+                image={spot.images.length ? spot.images[0].url : ""}
                 sx={{ objectFit: "fill" }}
               />
             </Grid>
@@ -58,6 +60,6 @@ export const SpotsList = () => {
       </Grid>
     </>
   ) : (
-    <NotFound message="Failed to load Spots"/>
+    <NotFound message="Failed to load Spots" />
   );
 };
