@@ -21,7 +21,7 @@ import { geoCoder } from "./../utils/mapbox";
 export const getSpotsHandler = async (_: Request, res: Response) => {
   try {
     const spots = await getSpots();
-    return res.send(spots);
+    return res.send(spots.reverse());
   } catch (e) {
     return res.sendStatus(404);
   }

@@ -25,7 +25,6 @@ export const SpotsList = () => {
   ) : isSuccess ? (
     <>
       <MapCluster spots={data}/>
-      <Typography variant="h3">Lists of Spots</Typography>
       <Grid container direction="column">
         {data.map((spot) => (
           <Card key={spot._id} sx={{ mb: 3, display: "flex" }}>

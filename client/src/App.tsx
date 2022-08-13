@@ -8,10 +8,12 @@ import { Login } from "./components/auth/Login";
 import { RequireAuth } from "./components/RequireAuth";
 import { NotFound } from "./components/spots/NotFound";
 import { SpotsList } from "./components/spots/SpotsList";
+import { LandingPage } from "./components/LandingPage";
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
         <Route path="/spots" element={<SpotsList />} />

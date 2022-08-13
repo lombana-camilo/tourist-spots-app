@@ -1,4 +1,11 @@
-import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Link,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetCurrentUserQuery } from "../../store/api/authApiSlice";
@@ -19,8 +26,10 @@ export const NavBar = () => {
     <div>
       <AppBar sx={{ background: "#323336" }}>
         <Toolbar>
-          <Typography variant="h5" sx={{ flexGrow: 1 }}>
-            Tourist-Spots
+          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+            <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
+              Tourist-Spots
+            </Link>
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button onClick={() => navigate("/spots")}>Spots</Button>
