@@ -13,7 +13,7 @@ const server = express()
 server.use(mongoSanitize())
 server.use(express.urlencoded({ extended: true }))
 server.use(express.json())
-server.use(morgan('tiny'))
+// server.use(morgan('tiny'))
 server.use(cors({
    // origin:config.get<string>('originUrl'),
    credentials:true
