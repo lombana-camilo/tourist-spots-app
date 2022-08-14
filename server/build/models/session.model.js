@@ -37,4 +37,3 @@ Session = __decorate([
 exports.Session = Session;
 const SessionModel = (0, typegoose_1.getModelForClass)(Session);
 exports.default = SessionModel;
-//# sourceMappingURL=session.model.js.map

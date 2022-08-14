@@ -26,4 +26,3 @@ const getCurrentUser = (req, res) => {
     return res.send(res.locals.user);
 };
 exports.getCurrentUser = getCurrentUser;
-//# sourceMappingURL=user.controller.js.map

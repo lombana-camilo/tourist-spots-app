@@ -29,4 +29,3 @@ function connect() {
     });
 }
 exports.default = connect;
-//# sourceMappingURL=db.js.map

@@ -61,4 +61,3 @@ const deleteSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     });
 });
 exports.deleteSessionHandler = deleteSessionHandler;
-//# sourceMappingURL=session.controller.js.map

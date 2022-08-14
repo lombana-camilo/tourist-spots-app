@@ -41,4 +41,3 @@ const deleteSpot = (query) => __awaiter(void 0, void 0, void 0, function* () {
     return yield spot_model_1.default.deleteOne(query);
 });
 exports.deleteSpot = deleteSpot;
-//# sourceMappingURL=spot.service.js.map

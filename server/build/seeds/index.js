@@ -44,4 +44,3 @@ const seedDb = () => __awaiter(void 0, void 0, void 0, function* () {
 seedDb().then(() => {
     mongoose_1.default.connection.close();
 });
-//# sourceMappingURL=index.js.map

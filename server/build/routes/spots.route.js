@@ -22,4 +22,3 @@ spots
 spots.post("/", [requireUser_1.default, upload.array("images"), (0, validateRequest_1.default)(spot_schema_1.createSpotSchema)], spot_controller_1.createSpotHandler);
 spots.use("/:spotId/reviews", review_route_1.default);
 exports.default = spots;
-//# sourceMappingURL=spots.route.js.map

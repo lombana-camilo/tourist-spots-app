@@ -20,4 +20,3 @@ exports.storage = new CloudinaryStorage({
     }
 });
 exports.default = cloudinary_1.v2;
-//# sourceMappingURL=cloudinary.js.map

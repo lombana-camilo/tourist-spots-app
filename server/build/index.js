@@ -30,4 +30,3 @@ function startServer() {
     });
 }
 startServer();
-//# sourceMappingURL=index.js.map

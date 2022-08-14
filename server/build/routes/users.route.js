@@ -13,4 +13,3 @@ const users = (0, express_1.Router)();
 users.get('/me', requireUser_1.default, user_controller_1.getCurrentUser);
 users.post('/', (0, validateRequest_1.default)(user_schema_1.createUserSchema), user_controller_1.createUserHandler, session_controller_1.createSessionHandler);
 exports.default = users;
-//# sourceMappingURL=users.route.js.map

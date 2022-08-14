@@ -8,4 +8,3 @@ exports.createSessionSchema = (0, zod_1.object)({
         password: (0, zod_1.string)({ required_error: 'Password is required' }),
     })
 });
-//# sourceMappingURL=sesion.schema.js.map

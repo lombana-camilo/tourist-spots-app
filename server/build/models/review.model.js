@@ -35,4 +35,3 @@ Review = __decorate([
 exports.Review = Review;
 const ReviewModel = (0, typegoose_1.getModelForClass)(Review);
 exports.default = ReviewModel;
-//# sourceMappingURL=review.model.js.map

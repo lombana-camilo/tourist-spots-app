@@ -17,4 +17,3 @@ exports.deleteReviewsSchema = (0, zod_1.object)({
         reviewId: (0, zod_1.string)().min(1, "Review Id is required"),
     }),
 });
-//# sourceMappingURL=review.schema.js.map

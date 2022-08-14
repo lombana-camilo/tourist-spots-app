@@ -53,4 +53,3 @@ const updateSession = (query, update) => __awaiter(void 0, void 0, void 0, funct
     return session_model_1.default.updateOne(query, update);
 });
 exports.updateSession = updateSession;
-//# sourceMappingURL=sessions.service.js.map

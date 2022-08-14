@@ -62,4 +62,3 @@ const filterData = (admin) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.default = filterData;
-//# sourceMappingURL=api.js.map

@@ -49,4 +49,3 @@ Spot = __decorate([
 exports.Spot = Spot;
 const SpotModel = (0, typegoose_1.getModelForClass)(Spot);
 exports.default = SpotModel;
-//# sourceMappingURL=spot.model.js.map

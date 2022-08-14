@@ -27,4 +27,3 @@ server.use((0, cookie_parser_1.default)());
 server.use(deserializeUser_1.default);
 server.use("/api", routes_1.default);
 exports.default = server;
-//# sourceMappingURL=server.js.map

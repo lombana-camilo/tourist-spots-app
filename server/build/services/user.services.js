@@ -39,4 +39,3 @@ const validatePassword = ({ email, password, }) => __awaiter(void 0, void 0, voi
     return Object.assign(Object.assign({}, omitPassword), { _id: user._id });
 });
 exports.validatePassword = validatePassword;
-//# sourceMappingURL=user.services.js.map

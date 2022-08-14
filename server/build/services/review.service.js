@@ -22,4 +22,3 @@ const deleteReview = (query) => __awaiter(void 0, void 0, void 0, function* () {
     return yield review_model_1.default.findOneAndDelete(query, { lean: true });
 });
 exports.deleteReview = deleteReview;
-//# sourceMappingURL=review.service.js.map

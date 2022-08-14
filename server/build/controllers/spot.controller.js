@@ -107,4 +107,3 @@ const deleteSpotHandler = (req, res) => __awaiter(void 0, void 0, void 0, functi
     return res.send(deleted);
 });
 exports.deleteSpotHandler = deleteSpotHandler;
-//# sourceMappingURL=spot.controller.js.map

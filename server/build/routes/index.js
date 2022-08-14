@@ -15,4 +15,3 @@ routes.all("*", (req, res) => {
     res.status(404).send("Not Found");
 });
 exports.default = routes;
-//# sourceMappingURL=index.js.map

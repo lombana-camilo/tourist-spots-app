@@ -62,4 +62,3 @@ User = __decorate([
 exports.User = User;
 const UserModel = (0, typegoose_1.getModelForClass)(User);
 exports.default = UserModel;
-//# sourceMappingURL=users.models.js.map

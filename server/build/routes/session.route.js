@@ -15,4 +15,3 @@ sessions
     .post((0, validateRequest_1.default)(sesion_schema_1.createSessionSchema), session_controller_1.createSessionHandler)
     .delete(requireUser_1.default, session_controller_1.deleteSessionHandler);
 exports.default = sessions;
-//# sourceMappingURL=session.route.js.map

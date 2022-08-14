@@ -40,4 +40,3 @@ const verifyJwt = (token) => {
     }
 };
 exports.verifyJwt = verifyJwt;
-//# sourceMappingURL=jwt.utils.js.map

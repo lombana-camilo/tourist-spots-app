@@ -68,4 +68,3 @@ const deleteReviewHandler = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteReviewHandler = deleteReviewHandler;
-//# sourceMappingURL=review.controller.js.map

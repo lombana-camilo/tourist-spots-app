@@ -19,4 +19,3 @@ exports.createSpotSchema = (0, zod_1.object)(Object.assign({}, payload));
 exports.updateSpotSchema = (0, zod_1.object)(Object.assign(Object.assign({}, payload), params));
 exports.findSpotSchema = (0, zod_1.object)(Object.assign({}, params));
 exports.deleteSpotSchema = (0, zod_1.object)(Object.assign({}, params));
-//# sourceMappingURL=spot.schema.js.map

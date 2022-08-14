@@ -8,4 +8,3 @@ const geocoding_1 = __importDefault(require("@mapbox/mapbox-sdk/services/geocodi
 const config_1 = __importDefault(require("config"));
 const mapBoxToken = config_1.default.get("mapBoxToken");
 exports.geoCoder = (0, geocoding_1.default)({ accessToken: mapBoxToken });
-//# sourceMappingURL=mapbox.js.map
