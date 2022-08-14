@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
-    "start": "nodemon ./build/index.js",
+    "start": "nodemon ./build/src/index.js",
     "seed": "ts-node-dev --respawn src/seeds/index.ts",
     "build": "tsc"
   },
