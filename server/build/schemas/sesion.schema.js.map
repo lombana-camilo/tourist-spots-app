@@ -1,0 +1,1 @@
+{"version":3,"file":"sesion.schema.js","sourceRoot":"","sources":["../../src/schemas/sesion.schema.ts"],"names":[],"mappings":";;;AAAA,6BAA6C;AAEhC,QAAA,mBAAmB,GAAG,IAAA,YAAM,EAAC;IACvC,IAAI,EAAC,IAAA,YAAM,EAAC;QACT,KAAK,EAAC,IAAA,YAAM,EAAC,EAAC,cAAc,EAAC,mBAAmB,EAAC,CAAC;QAClD,QAAQ,EAAC,IAAA,YAAM,EAAC,EAAC,cAAc,EAAC,sBAAsB,EAAC,CAAC;KAC1D,CAAC;CACJ,CAAC,CAAA"}
