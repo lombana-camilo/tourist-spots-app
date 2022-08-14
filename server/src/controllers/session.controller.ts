@@ -35,19 +35,19 @@ export const createSessionHandler = async (
   res.cookie("accessToken", accessToken, {
     maxAge: 900000, //15min
     httpOnly: true,
-    domain: config.get("domain"),
+    // domain: config.get("domain"),
     path: "/",
     sameSite: "strict",
-    secure: false, //true in production (cookie only used over https)
+    secure: true, //true in production (cookie only used over https)
   });
 
   res.cookie("refreshToken", refreshToken, {
     maxAge: 3600000, // 1h
     httpOnly: true,
-    domain: config.get("domain"),
+    // domain: config.get("domain"),
     path: "/",
     sameSite: "strict",
-    secure: false, //true in production (cookie only used over https)
+    secure: true, //true in production (cookie only used over https)
   });
 
   // Return tokens

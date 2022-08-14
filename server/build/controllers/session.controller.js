@@ -28,18 +28,16 @@ const createSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     res.cookie("accessToken", accessToken, {
         maxAge: 900000,
         httpOnly: true,
-        domain: config_1.default.get("domain"),
         path: "/",
         sameSite: "strict",
-        secure: false,
+        secure: true,
     });
     res.cookie("refreshToken", refreshToken, {
         maxAge: 3600000,
         httpOnly: true,
-        domain: config_1.default.get("domain"),
         path: "/",
         sameSite: "strict",
-        secure: false,
+        secure: true,
     });
     return res.send({ accessToken, refreshToken });
 });
