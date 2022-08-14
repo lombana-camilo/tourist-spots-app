@@ -22,7 +22,7 @@ export const SnackNotification = () => {
       open={snackBarOpen}
          onClose={handleClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      autoHideDuration={6000}
+      autoHideDuration={5000}
     >
       <Alert onClose={handleClose} severity={snackBarType} variant="filled">
         {snackBarMessage}

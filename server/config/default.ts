@@ -35,4 +35,7 @@ XhIrqMWGtkuXzEc/CQIDAQAB
 
   //MapBox
   mapBoxToken,
+
+  //Atlas
+  DB_URL: process.env.DB_URL,
 };
