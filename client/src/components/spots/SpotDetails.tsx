@@ -24,7 +24,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper";
 import "swiper/css/navigation";
-import { MapSingle} from "../maps/MapSingle";
+import { MapSingle } from "../maps/MapSingle";
 
 export const SpotDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -72,6 +72,7 @@ export const SpotDetails = () => {
     <Box
       sx={{
         display: "flex",
+        flexDirection: { xs: "column", md: "row" },
         mx: "auto",
         width: "80%",
         height: "100%",
@@ -129,7 +130,7 @@ export const SpotDetails = () => {
 
       <Card variant="outlined" sx={{ width: "100%" }}>
         <Grid item md={6}>
-          <MapSingle spot={spotData}/>
+          <MapSingle spot={spotData} />
         </Grid>
         <Grid item md={6}>
           <CardContent>

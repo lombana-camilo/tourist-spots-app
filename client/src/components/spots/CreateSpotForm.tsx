@@ -28,7 +28,7 @@ export const CreateSpotForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [createSpot] = useCreateSpotMutation();
+  const [createSpot, resultsCreate] = useCreateSpotMutation();
 
   // console.log({ errors });
   const onSubmit = async (values: CreateSpotType) => {
@@ -40,7 +40,7 @@ export const CreateSpotForm = () => {
       formData.append("description", values.description);
 
       if (!values.images.length) {
-          formData.append("images[]", "");
+        formData.append("images[]", "");
       } else {
         for (let i = 0; i < values.images.length; i++) {
           formData.append("images", values.images[i]);
@@ -109,9 +109,15 @@ export const CreateSpotForm = () => {
             Upload Images
             <input type="file" {...register("images")} multiple hidden />
           </Button>
-          <Button variant="contained" color="success" fullWidth type="submit">
-            Create Spot
-          </Button>
+          {resultsCreate.isLoading ? (
+            <Button variant="contained" color="success" fullWidth type="submit">
+              Loading...
+            </Button>
+          ) : (
+            <Button variant="contained" color="success" fullWidth type="submit">
+              Create Spot
+            </Button>
+          )}
         </Box>
       </form>
     </Container>

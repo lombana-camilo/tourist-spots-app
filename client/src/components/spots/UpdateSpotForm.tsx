@@ -50,7 +50,7 @@ export const UpdateSpotForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [updateSpot] = useUpdateSpotMutation();
+  const [updateSpot, resultsUpdate] = useUpdateSpotMutation();
 
   const onSubmit = async (values: UpdateSpotType) => {
     try {
@@ -170,9 +170,15 @@ export const UpdateSpotForm = () => {
             ))}
           </Grid>
 
-          <Button variant="contained" color="info" fullWidth type="submit">
-            Update
-          </Button>
+          {resultsUpdate.isLoading ? (
+            <Button variant="contained" color="info" fullWidth type="submit">
+              Loading...
+            </Button>
+          ) : (
+            <Button variant="contained" color="info" fullWidth type="submit">
+              Update
+            </Button>
+          )}
         </Box>
       </form>
     </Container>

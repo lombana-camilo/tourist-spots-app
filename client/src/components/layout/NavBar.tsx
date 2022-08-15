@@ -26,7 +26,7 @@ export const NavBar = () => {
     <div>
       <AppBar sx={{ background: "#323336" }}>
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          <Typography sx={{ flexGrow: 1,typography:{md:"h3",sm:"h5"} }}>
             <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
               Tourist-Spots
             </Link>
