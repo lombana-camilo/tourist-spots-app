@@ -24,14 +24,22 @@ export const SpotsList = () => {
     <Typography>Loading...</Typography>
   ) : isSuccess ? (
     <>
-      <MapCluster spots={data}/>
-      <Grid container sx={{mt:2}}>
+      <MapCluster spots={data} />
+      <Grid container sx={{ mt: 2 }}>
         {data.map((spot) => (
-          <Card key={spot._id} sx={{ mb: 3,  display: "flex", flexDirection:{md:"row",xs:"column"} }}>
+          <Card
+            key={spot._id}
+            sx={{
+              mb: 3,
+              display: "flex",
+              flexDirection: { md: "row", xs: "column" },
+                        width:"100%"
+            }}
+          >
             <Grid item md={4}>
               <CardMedia
                 component="img"
-                height="220"
+                height="240"
                 image={spot.images.length ? spot.images[0].url : ""}
                 sx={{ objectFit: "fill" }}
               />
