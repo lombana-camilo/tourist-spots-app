@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createSession, getSessions, updateSession } from "./../services/sessions.service";
+import {
+  createSession,
+  getSessions,
+  updateSession,
+} from "./../services/sessions.service";
 import { CreateSessionSchemaType } from "./../schemas/sesion.schema";
 import { validatePassword } from "./../services/user.services";
 import { signJwt } from "./../utils/jwt.utils";
@@ -9,10 +13,9 @@ export const createSessionHandler = async (
   req: Request<{}, {}, CreateSessionSchemaType["body"]>,
   res: Response
 ) => {
-
-   //Check if there is a new user
-   // Validate user and password
-   const user = res.locals.newUser || await validatePassword(req.body);
+  //Check if there is a new user
+  // Validate user and password
+  const user = res.locals.newUser || (await validatePassword(req.body));
   if (!user) {
     return res.status(401).send("Incorrect Email or Password");
   }
@@ -36,40 +39,37 @@ export const createSessionHandler = async (
     maxAge: 900000, //15min
     httpOnly: true,
     // domain: config.get("domain"),
-    path: "/",
-    sameSite: "strict",
-    secure: true, //true in production (cookie only used over https)
+    // path: "/",
+    sameSite: "none",
+    secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });
 
   res.cookie("refreshToken", refreshToken, {
     maxAge: 3600000, // 1h
     httpOnly: true,
     // domain: config.get("domain"),
-    path: "/",
-    sameSite: "strict",
-    secure: true, //true in production (cookie only used over https)
+    // path: "/",
+    sameSite: "none",
+    secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });
 
   // Return tokens
   return res.send({ accessToken, refreshToken });
 };
 
-export const getSessionsHandler = async (
-  req: Request,
-  res: Response
-) => {
+export const getSessionsHandler = async (req: Request, res: Response) => {
   //ideally the user is in the req object
   // need to deserialize user from the token
-   const userId = res.locals.user._id
-   const sessions = await getSessions({user:userId,valid:true})
-   return res.send(sessions)
+  const userId = res.locals.user._id;
+  const sessions = await getSessions({ user: userId, valid: true });
+  return res.send(sessions);
 };
 
 export const deleteSessionHandler = async (req: Request, res: Response) => {
   const sessionId = res.locals.user.sessionId;
   await updateSession({ _id: sessionId }, { valid: false });
-   res.clearCookie('accessToken')
-   res.clearCookie('refreshToken')
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
   return res.send({
     accessToken: null,
     refreshToken: null,

@@ -18,9 +18,10 @@ const config_1 = __importDefault(require("config"));
 const api_1 = __importDefault(require("./api"));
 const users_models_1 = __importDefault(require("./../models/users.models"));
 const dbUri = config_1.default.get("dbUri");
+const db_url = config_1.default.get("DB_URL");
 const seedDb = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const db = yield mongoose_1.default.connect(dbUri);
+        const db = yield mongoose_1.default.connect(db_url || dbUri);
         console.log("Connected to DB");
         yield spot_model_1.default.deleteMany({});
         console.log("Cleaned previous Spots");

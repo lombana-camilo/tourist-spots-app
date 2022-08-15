@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=production ts-node-dev --respawn src/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev --respawn src/index.ts",
     "start": "NODE_ENV=production nodemon ./build/src/index.js",
     "seed": "ts-node-dev --respawn src/seeds/index.ts",
-    "build": "tsc"
+    "build": "rm -rf ./build && tsc"
   },
   "author": "Camilo Lombana",
   "license": "ISC",

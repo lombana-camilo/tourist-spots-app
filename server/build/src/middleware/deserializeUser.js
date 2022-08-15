@@ -8,11 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("config"));
 const lodash_1 = require("lodash");
 const sessions_service_1 = require("./../services/sessions.service");
 const jwt_utils_1 = require("./../utils/jwt.utils");
@@ -35,10 +31,8 @@ const deserializeUser = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             res.cookie("accessToken", newAccessToken, {
                 maxAge: 900000,
                 httpOnly: true,
-                domain: config_1.default.get("domain"),
-                path: "/",
-                sameSite: "strict",
-                secure: false,
+                sameSite: "none",
+                secure: process.env.NODE_ENV === "production",
             });
             const { decoded } = (0, jwt_utils_1.verifyJwt)(newAccessToken);
             res.locals.user = decoded;

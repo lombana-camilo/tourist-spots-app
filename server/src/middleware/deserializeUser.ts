@@ -34,10 +34,10 @@ const deserializeUser = async (
       res.cookie("accessToken", newAccessToken, {
         maxAge: 900000, // 15min
         httpOnly: true, // not accessible by js, only http
-        domain: config.get("domain"),
-        path: "/",
-        sameSite: "strict",
-        secure: false, //true in production (cookie only use in https)
+        // domain: config.get("domain"),
+        // path: "/",
+        sameSite: "none",
+        secure:  process.env.NODE_ENV === "production", //true in production (cookie only use in https)
       });
 
       const { decoded } = verifyJwt(newAccessToken);

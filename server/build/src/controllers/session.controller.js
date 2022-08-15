@@ -28,16 +28,14 @@ const createSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     res.cookie("accessToken", accessToken, {
         maxAge: 900000,
         httpOnly: true,
-        path: "/",
-        sameSite: "strict",
-        secure: true,
+        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
     });
     res.cookie("refreshToken", refreshToken, {
         maxAge: 3600000,
         httpOnly: true,
-        path: "/",
-        sameSite: "strict",
-        secure: true,
+        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
     });
     return res.send({ accessToken, refreshToken });
 });
@@ -51,8 +49,8 @@ exports.getSessionsHandler = getSessionsHandler;
 const deleteSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const sessionId = res.locals.user.sessionId;
     yield (0, sessions_service_1.updateSession)({ _id: sessionId }, { valid: false });
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
     return res.send({
         accessToken: null,
         refreshToken: null,

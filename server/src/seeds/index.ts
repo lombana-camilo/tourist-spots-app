@@ -5,9 +5,10 @@ import filterArray from "./api";
 import UserModel from "./../models/users.models";
 
 const dbUri = config.get<string>("dbUri");
+const db_url = config.get<string>("DB_URL")
 const seedDb = async () => {
   try {
-    const db = await mongoose.connect(dbUri);
+    const db = await mongoose.connect(db_url || dbUri);
     console.log("Connected to DB");
     await SpotModel.deleteMany({});
     console.log("Cleaned previous Spots");

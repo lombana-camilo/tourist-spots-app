@@ -10,14 +10,12 @@ const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 
 export default {
   dbUri,
-  domain: "localhost",
-  port: process.env.PORT || 4000,
+  domain: ".vercel.app",
+  port: process.env.PORT,
   API_KEY,
   API_HOST,
   // cors
-  originUrl:
-    `https://tourist-spots-app.vercel.app` ||
-    `http://localhost:${process.env.PORT}`,
+  originUrl: `https://tourist-spots-app.vercel.app`,
   // hash password
   saltFactor: 10,
   accessTokenTtl: "15m",

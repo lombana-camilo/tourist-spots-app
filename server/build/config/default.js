@@ -8,11 +8,10 @@ const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 exports.default = {
     dbUri,
     domain: "localhost",
-    port: process.env.PORT || 4000,
+    port: 4000,
     API_KEY,
     API_HOST,
-    originUrl: `https://tourist-spots-app.vercel.app` ||
-        `http://localhost:${process.env.PORT}`,
+    originUrl: `http://localhost:5173`,
     saltFactor: 10,
     accessTokenTtl: "15m",
     refreshTokenTtl: "2h",
