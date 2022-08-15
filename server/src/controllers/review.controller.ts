@@ -47,8 +47,6 @@ export const deleteReviewHandler = async (
     if (!review) {
       return res.sendStatus(404);
     }
-    console.log("review.user", get(review.user, "_id").toString());
-    console.log("sessionUserId", userId);
     if (get(review.user, "_id").toString() !== userId) {
       return res
         .status(403)

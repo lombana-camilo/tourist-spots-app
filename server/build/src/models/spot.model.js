@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Spot.prototype, "reviews", void 0);
 Spot = __decorate([
-    (0, typegoose_1.modelOptions)({ schemaOptions: { timestamps: false, versionKey: false } })
+    (0, typegoose_1.modelOptions)({ schemaOptions: { timestamps: false, versionKey: false }, options: { allowMixed: typegoose_1.Severity.ALLOW } })
 ], Spot);
 exports.Spot = Spot;
 const SpotModel = (0, typegoose_1.getModelForClass)(Spot);

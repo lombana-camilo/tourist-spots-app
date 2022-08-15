@@ -44,7 +44,6 @@ export const MapCluster: FC<{ spots: SpotDocument[] }> = ({ spots }) => {
         "spots"
       ) as GeoJSONSource;
 
-      console.log({ mapboxSource });
       const clusterId = feature.properties.cluster_id;
       mapboxSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
         get(

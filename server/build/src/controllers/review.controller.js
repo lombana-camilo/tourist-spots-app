@@ -52,8 +52,6 @@ const deleteReviewHandler = (req, res) => __awaiter(void 0, void 0, void 0, func
         if (!review) {
             return res.sendStatus(404);
         }
-        console.log("review.user", (0, lodash_1.get)(review.user, "_id").toString());
-        console.log("sessionUserId", userId);
         if ((0, lodash_1.get)(review.user, "_id").toString() !== userId) {
             return res
                 .status(403)

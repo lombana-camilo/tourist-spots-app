@@ -3,6 +3,7 @@ import {
   modelOptions,
   prop,
   Ref,
+  Severity,
 } from "@typegoose/typegoose";
 import { Review } from "./review.model";
 import { User } from "./users.models";
@@ -17,7 +18,7 @@ interface Geometry{
    coordinates:number[]
 }
 
-@modelOptions({ schemaOptions: { timestamps: false, versionKey: false } })
+@modelOptions({ schemaOptions: { timestamps: false, versionKey: false },options:{allowMixed:Severity.ALLOW} })
 export class Spot {
   @prop({ ref: () => User })
   user: Ref<User>;

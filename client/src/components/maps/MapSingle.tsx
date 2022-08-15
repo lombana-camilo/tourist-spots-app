@@ -12,7 +12,6 @@ export const MapSingle: FC<{ spot: SpotDocument }> = ({ spot }) => {
   });
   const [isSelected, setIsSelected] = useState<null | boolean>(null);
 
-  console.log({ isSelected });
   return (
     <Map
       {...viewport}

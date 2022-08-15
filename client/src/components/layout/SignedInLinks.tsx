@@ -7,7 +7,6 @@ export const SignedInLinks = () => {
   return (
     <div>
       <Button variant="outlined" onClick={() => navigate("/spots/new")}>New Spot</Button>
-      {/* <Button onClick={() => navigate("/spots")}><LogOut /></Button> */}
       <LogOut />
     </div>
   );

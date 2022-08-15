@@ -1,4 +1,4 @@
-import { Alert, Snackbar} from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setSnackBar } from "../../store/notifications/notificationsSlice";
 
@@ -20,7 +20,7 @@ export const SnackNotification = () => {
   return (
     <Snackbar
       open={snackBarOpen}
-         onClose={handleClose}
+      onClose={handleClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       autoHideDuration={5000}
     >

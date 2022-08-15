@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { custom, object, string, TypeOf } from "zod";
-import { useState } from "react";
 import { useCreateSpotMutation } from "../../store/api/spotsApiSlice";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
@@ -35,7 +34,6 @@ export const CreateSpotForm = () => {
   const onSubmit = async (values: CreateSpotType) => {
     try {
       //Set image
-      console.log({ values });
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("location", values.location);
@@ -49,7 +47,6 @@ export const CreateSpotForm = () => {
         }
       }
 
-      console.log("images", values.images);
       const newSpot = await createSpot(formData).unwrap();
       navigate(`/spots/${newSpot._id}`);
       dispatch(

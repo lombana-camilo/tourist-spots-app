@@ -55,7 +55,6 @@ export const UpdateSpotForm = () => {
   const onSubmit = async (values: UpdateSpotType) => {
     try {
       //Set image
-      console.log({ values });
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("location", values.location);
