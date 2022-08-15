@@ -12,10 +12,11 @@ export default {
   dbUri,
   domain: "localhost",
   port: process.env.PORT || 4000,
+  // port: 4000,
   API_KEY,
   API_HOST,
   // cors
-  originUrl: "http://localhost:5173",
+  originUrl: `http://localhost:${process.env.PORT}`,
   // hash password
   saltFactor: 10,
   accessTokenTtl: "15m",
