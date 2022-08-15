@@ -12,7 +12,6 @@ export default {
   dbUri,
   domain: "localhost",
   port: process.env.PORT || 4000,
-  // port: 4000,
   API_KEY,
   API_HOST,
   // cors

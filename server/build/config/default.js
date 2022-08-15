@@ -11,7 +11,7 @@ exports.default = {
     port: process.env.PORT || 4000,
     API_KEY,
     API_HOST,
-    originUrl: "http://localhost:5173",
+    originUrl: `http://localhost:${process.env.PORT}`,
     saltFactor: 10,
     accessTokenTtl: "15m",
     refreshTokenTtl: "2h",
