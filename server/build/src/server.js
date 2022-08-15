@@ -12,6 +12,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path_1 = __importDefault(require("path"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const server = (0, express_1.default)();
+server.set("trust proxy", 1);
 server.use((0, express_mongo_sanitize_1.default)());
 server.use(express_1.default.urlencoded({ extended: true }));
 server.use(express_1.default.json());
