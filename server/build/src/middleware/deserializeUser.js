@@ -32,7 +32,7 @@ const deserializeUser = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
                 maxAge: 900000,
                 httpOnly: true,
                 path: "/",
-                sameSite: "none",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                 secure: process.env.NODE_ENV === "production",
             });
             const { decoded } = (0, jwt_utils_1.verifyJwt)(newAccessToken);

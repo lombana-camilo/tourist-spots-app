@@ -40,7 +40,7 @@ export const createSessionHandler = async (
     httpOnly: true,
     // domain: config.get("domain"),
     path: "/",
-    sameSite: "none",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });
 
@@ -49,7 +49,7 @@ export const createSessionHandler = async (
     httpOnly: true,
     // domain: config.get("domain"),
     path: "/",
-    sameSite: "none",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });
 
@@ -68,8 +68,30 @@ export const getSessionsHandler = async (req: Request, res: Response) => {
 export const deleteSessionHandler = async (req: Request, res: Response) => {
   const sessionId = res.locals.user.sessionId;
   await updateSession({ _id: sessionId }, { valid: false });
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
+      res.cookie("accessToken", null, {
+        maxAge: -1, // 15min
+        httpOnly: true, // not accessible by js, only http
+        // domain: config.get("domain"),
+        path: "/",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
+      });
+      res.cookie("refreshToken", null, {
+        maxAge: -1, // 15min
+        httpOnly: true, // not accessible by js, only http
+        // domain: config.get("domain"),
+        path: "/",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
+      });
+  // res.clearCookie("accessToken", {
+  //   path: "/",
+  //   secure: process.env.NODE_ENV === "production",
+  // });
+  // res.clearCookie("refreshToken", {
+  //   path: "/",
+  //   secure: process.env.NODE_ENV === "production",
+  // });
   return res.send({
     accessToken: null,
     refreshToken: null,

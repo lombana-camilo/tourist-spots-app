@@ -22,6 +22,11 @@ interface Session {
   email: string;
   password: string;
 }
+
+interface Deleted{
+   accessToken:null | string
+   refreshToken:null | string
+}
 export const authApiSlice = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
@@ -46,7 +51,7 @@ export const authApiSlice = createApi({
         body: data,
       }),
     }),
-    deleteSession: builder.mutation<void, void>({
+    deleteSession: builder.mutation<Deleted, void>({
       query: () => ({
         url: `/sessions`,
         method: "DELETE",

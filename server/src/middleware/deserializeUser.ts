@@ -36,8 +36,8 @@ const deserializeUser = async (
         httpOnly: true, // not accessible by js, only http
         // domain: config.get("domain"),
         path: "/",
-        sameSite: "none",
-        secure:  process.env.NODE_ENV === "production", //true in production (cookie only use in https)
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
       });
 
       const { decoded } = verifyJwt(newAccessToken);

@@ -14,7 +14,9 @@ export const LogOut = () => {
   const [deleteSession] = useDeleteSessionMutation();
   const handleLogout = async () => {
       try {
-         await deleteSession().unwrap();
+        const deleted = await deleteSession().unwrap();
+         // if(deleted.accessToken === null){
+         // }
          navigate('/spots')
          getCurrentUser().unwrap()
       dispatch(
