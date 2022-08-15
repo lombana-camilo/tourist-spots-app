@@ -26,13 +26,13 @@ export const NavBar = () => {
     <div>
       <AppBar sx={{ background: "#323336" }}>
         <Toolbar>
-          <Typography sx={{ flexGrow: 1,typography:{md:"h3",sm:"h5"} }}>
+          <Typography sx={{ flexGrow: 1,typography:{md:"h3",sm:"h6"} }}>
             <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
               Tourist-Spots
             </Link>
           </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button onClick={() => navigate("/spots")}>Spots</Button>
+          <Stack direction="row" spacing={0}>
+            <Button size="small" onClick={() => navigate("/spots")}>Spots</Button>
             {results.isLoading ? null : results.isSuccess ? (
               <SignedInLinks />
             ) : (

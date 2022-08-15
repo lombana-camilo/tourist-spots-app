@@ -6,7 +6,7 @@ export const SignedInLinks = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <Button variant="outlined" onClick={() => navigate("/spots/new")}>New Spot</Button>
+      <Button variant="outlined" size="small" onClick={() => navigate("/spots/new")}>New Spot</Button>
       <LogOut />
     </div>
   );

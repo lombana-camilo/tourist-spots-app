@@ -30,5 +30,5 @@ export const LogOut = () => {
         console.log(e) 
       }
   };
-  return <Button color="warning" variant="outlined" onClick={handleLogout}>LogOut</Button>;
+  return <Button color="warning" size="small" variant="outlined" onClick={handleLogout}>LogOut</Button>;
 };
