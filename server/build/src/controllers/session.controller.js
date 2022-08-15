@@ -28,12 +28,14 @@ const createSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     res.cookie("accessToken", accessToken, {
         maxAge: 900000,
         httpOnly: true,
+        path: "/",
         sameSite: "none",
         secure: process.env.NODE_ENV === "production",
     });
     res.cookie("refreshToken", refreshToken, {
         maxAge: 3600000,
         httpOnly: true,
+        path: "/",
         sameSite: "none",
         secure: process.env.NODE_ENV === "production",
     });

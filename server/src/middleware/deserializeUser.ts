@@ -35,7 +35,7 @@ const deserializeUser = async (
         maxAge: 900000, // 15min
         httpOnly: true, // not accessible by js, only http
         // domain: config.get("domain"),
-        // path: "/",
+        path: "/",
         sameSite: "none",
         secure:  process.env.NODE_ENV === "production", //true in production (cookie only use in https)
       });

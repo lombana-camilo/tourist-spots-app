@@ -39,7 +39,7 @@ export const createSessionHandler = async (
     maxAge: 900000, //15min
     httpOnly: true,
     // domain: config.get("domain"),
-    // path: "/",
+    path: "/",
     sameSite: "none",
     secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });
@@ -48,7 +48,7 @@ export const createSessionHandler = async (
     maxAge: 3600000, // 1h
     httpOnly: true,
     // domain: config.get("domain"),
-    // path: "/",
+    path: "/",
     sameSite: "none",
     secure: process.env.NODE_ENV === "production", //true in production (cookie only use in https)
   });

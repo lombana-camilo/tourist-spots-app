@@ -31,6 +31,7 @@ const deserializeUser = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             res.cookie("accessToken", newAccessToken, {
                 maxAge: 900000,
                 httpOnly: true,
+                path: "/",
                 sameSite: "none",
                 secure: process.env.NODE_ENV === "production",
             });
