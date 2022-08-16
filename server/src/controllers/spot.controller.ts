@@ -21,7 +21,11 @@ import { geoCoder } from "./../utils/mapbox";
 export const getSpotsHandler = async (_: Request, res: Response) => {
   try {
     const spots = await getSpots();
-    return res.send(spots.reverse());
+    const thumbSpots = spots.map((spot) => {
+         spot.images = spot.thumbnail
+         return spot
+    });
+    return res.send(thumbSpots.reverse());
   } catch (e) {
     return res.sendStatus(404);
   }
@@ -53,7 +57,9 @@ export const createSpotHandler = async (
       limit: 1,
     })
     .send();
-   if (!geoData.body.features.length){return res.status(400).send("Please enter a valid location")}
+  if (!geoData.body.features.length) {
+    return res.status(400).send("Please enter a valid location");
+  }
 
   const userId = res.locals.user._id;
   const multerFiles = (req as MulterRequest).files;

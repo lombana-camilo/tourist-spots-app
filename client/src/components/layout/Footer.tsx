@@ -5,9 +5,9 @@ import EmailIcon from "@mui/icons-material/Email";
 
 export const Footer = () => {
   const githubLink =
-    "https://github.com/lombana-camilo/text-encoder-decoder.git";
+    "https://github.com/lombana-camilo/tourist-spots-app";
   const linkedInLink =
-    "https://www.linkedin.com/in/camilo-lombana-970812196?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BrlF4d7jnQ1eMa1HaJKwrzQ%3D%3D";
+    "www.linkedin.com/in/camilo-lombana-970812196";
   const emailLink = "mailto:lombana.camilo@hotmail.com";
   return (
     <footer

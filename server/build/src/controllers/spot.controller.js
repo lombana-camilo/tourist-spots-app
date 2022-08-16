@@ -21,7 +21,11 @@ const mapbox_1 = require("./../utils/mapbox");
 const getSpotsHandler = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const spots = yield (0, spot_service_1.getSpots)();
-        return res.send(spots.reverse());
+        const thumbSpots = spots.map((spot) => {
+            spot.images = spot.thumbnail;
+            return spot;
+        });
+        return res.send(thumbSpots.reverse());
     }
     catch (e) {
         return res.sendStatus(404);

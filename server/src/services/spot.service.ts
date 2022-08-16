@@ -15,7 +15,7 @@ export const findSpot = async (query: FilterQuery<Spot>) => {
   }
 };
 
-export const createSpot = async (spot: Spot) => {
+export const createSpot = async (spot: Omit<Spot,"thumbnail">) => {
   return await SpotModel.create(spot);
 };
 

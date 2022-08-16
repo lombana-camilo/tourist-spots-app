@@ -46,7 +46,7 @@ const filterData = (admin) => __awaiter(void 0, void 0, void 0, function* () {
                 title: spot.name,
                 description: spot.description,
                 location: spot.location_string,
-                images: [{ url: spot.photo.images.original.url, filename: spot.name }],
+                images: [{ url: spot.photo.images.medium.url, filename: spot.name }],
                 geometry: {
                     type: "Point",
                     coordinates: [Number(spot.longitude), Number(spot.latitude)],
