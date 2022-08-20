@@ -6,8 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 export const Footer = () => {
   const githubLink =
     "https://github.com/lombana-camilo/tourist-spots-app";
-  const linkedInLink =
-    "www.linkedin.com/in/camilo-lombana-970812196";
+  const linkedInLink = "https://www.linkedin.com/in/camilo-lombana-970812196";
   const emailLink = "mailto:lombana.camilo@hotmail.com";
   return (
     <footer

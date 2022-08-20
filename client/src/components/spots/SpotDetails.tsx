@@ -74,7 +74,7 @@ export const SpotDetails = () => {
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         mx: "auto",
-        width: "80%",
+        width: "90%",
         height: "100%",
       }}
     >
