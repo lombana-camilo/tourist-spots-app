@@ -107,6 +107,7 @@ export const UpdateSpotForm = () => {
       </Typography>
       <form
         onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
         noValidate
         encType="multipart/form-data"
       >

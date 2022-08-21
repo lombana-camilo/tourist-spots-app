@@ -3,7 +3,7 @@ import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "../auth/LogOut";
 
-export const SignedInLinks: FC<{ username: string }> = ({ username }) => {
+export const SignedInLinks: FC<{ username: string }> = ({ username = "nn" }) => {
   const initials = username.slice(0, 2).toUpperCase();
   const navigate = useNavigate();
   return (

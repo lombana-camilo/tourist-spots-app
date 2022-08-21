@@ -73,6 +73,7 @@ export const CreateSpotForm = () => {
         Create new spot
       </Typography>
       <form
+        autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         encType="multipart/form-data"
