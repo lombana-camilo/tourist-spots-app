@@ -69,7 +69,7 @@ export const Login = () => {
             <Typography variant="h4" fontWeight="bold" gutterBottom>
                Login
             </Typography>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <TextField
                      label="email"

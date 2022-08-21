@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Box,
   Button,
   Link,
   Stack,
@@ -25,16 +26,24 @@ export const NavBar = () => {
   return (
     <div>
       <AppBar sx={{ background: "#323336" }}>
-        <Toolbar>
-          <Typography sx={{ flexGrow: 1,typography:{md:"h3",sm:"h6"} }}>
+        <Toolbar sx={{ justifyContent: "space-around"}}>
+          <Typography
+            sx={{
+              flexGrow: 1,
+              typography: { md: "h3", sm: "h6" },
+              display: { xs: "none", sm: "flex" },
+            }}
+          >
             <Link href="/" sx={{ textDecoration: "none", color: "inherit" }}>
               Tourist-Spots
             </Link>
           </Typography>
-          <Stack direction="row" spacing={0}>
-            <Button size="small" onClick={() => navigate("/spots")}>Spots</Button>
+          <Stack direction="row" spacing={3} sx={{display:"flex", justifyContent:"space-around"}}>
+            <Button color="info" variant="contained" size="small" onClick={() => navigate("/spots")}>
+              AllSpots
+            </Button>
             {results.isLoading ? null : results.isSuccess ? (
-              <SignedInLinks />
+              <SignedInLinks username={results.data.username as string} />
             ) : (
               <SignedOutLinks />
             )}
