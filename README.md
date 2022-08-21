@@ -1,86 +1,81 @@
 # Fullstack Project - Tourist Spots App
 
 ## Main Objective
-Create a fullstack web application with authentication that enables the user to list properties for rent or sale, filter the results and create their own ads of a new property
+Create a fullstack web application with authentication that enables the users to create, modify and delete their own tourist spots. Besides, all posts are displayed in a map where users can see details and leave reviews
 
 ## Development Tools
 
-* React
-* Redux
-* Node Js
-* Express
+* Typescript
+* React - router, forms
+* Material UI
+* Redux Store & RTK Query
+* Zod Validation
+* Node Js & Express
 * MongoDb, Mongoose, Typegoose
-* Axios,bcrypt,redux-toolkit
+* JSON Web Tokens, bcrypt
+* Cloudynary, Multer
+* MapBox
 
 ### `API`
 
-The data of the properties was retrieved from [Rapid API - Bayut](https://rapidapi.com/apidojo/api/bayut)
+The database was previously seeded with location searched data of touristic atractions retrieved from [Rapid API - Bayut](https://rapidapi.com/apidojo/api/travel-advisor)
 
-<!-- ## Project Images -->
-<!-- Freely usable images were downloaded from [https://unsplash.com/](https://unsplash.com/) -->
 ## Features
-* The user can create and delete new ads of properties using its account
-* The user can filter properties by: purpose, rentFrequency, category, price, area, rooms, baths
-* The user can see the details of any ad by clicking on it
-* The user can use pagination to navigate through the results
+* User authentication with JSON Web Tokens 
+* Authorization and pop-up notifications
+* Form data validation using Zod
+* The user can create, modify and delete new posts of spots 
+* The user can see all posts in form of a map
+* The user can see the details of any spot, see others reviews, leave their own and delete them
 
 ## Frontend - Views
 ### `Landing Page`
 - Page presentation
 
-### `Main Page`
+### `Main Page - All Spots`
 - Search bar with authentication options
-- Filtering options
-- Area to display the listed properties
-- Pagination
+- Cluster map of all spots
+- All spots listed
 
 ### `Details Page`
-- Shows all information about a specific ad
+- Shows all information about a specific spot
+- See, write or delete reviews
 
 ### `Signup and Login Pages`
 - Dynamic controlled form to create or login a user
 
-### `Create Ad Page`
-- Dynamic controlled form to create or delete a property ad
+### `Create and Update Spot Page`
+- Dynamic controlled forms to create or update a spot
 
 ## Backend - Routes
-__GET /properties__: Gets both, api and DB properties  
-__GET /properties/{idProp}__: Gets details of specific property  
-__GET /properties/db/:userID__: Gets ads of specific user  
-__POST /properties/db/:userID__: Post ad for a specific user  
-__DELETE /properties/db/:adID:__ Deletes specific property from DB
+- CRUD operations for Users, Sessions, Spots(images,reviews)
+- Cloudynary served as an API for uploading users images
 
-### Authentication
-__POST /users/signup__  
-__POST /users/login__
 
-## Current Progress
+## Completed Progress
 ## `Backend`
 ### `App Bootstrap`
 - [x] Setup Server
 - [x] Setup Database connection
-- [x] Create routes
+- [x] Create routers
 ### `Registration`
-- [ ] Create User model, zodSchema
-- [ ] Set User CRUD endpoints, controller and services
-- [ ] Create Session model, zodSchema
-- [ ] Set Session CRUD endpoints, controller and services
+- [x] Create User model, zodSchema
+- [x] Set User CRUD endpoints, controller and services
+- [x] Create Session model, zodSchema
+- [x] Set Session CRUD endpoints, controller and services
 - [x] Validate requests middleware
-- [ ] Deserialize user Middleware - Tokens and Cookies
+- [x] Deserialize-user Middleware - Tokens and Cookies
 ### `Spot Model`
-- [ ] Create Spot model, zodSchema
+- [x] Create Spot model, zodSchema
 - [x] Seed model with Api data
-- [ ] Set Spot CRUD endpoints, controller and services
+- [x] Set Spot CRUD endpoints, controller and services
+- [x] Seed database with API data
 
-### `Frontend`
-- [ ] Landing
-- [ ] Home
-- [ ] Filters
-- [ ] Authentication
-- [ ] Pagination
-- [ ] Creation Form
-- [ ] Responsive
-### `Test`
-- [ ] Database
-- [ ] Models, rendering
-- [ ] Front, components
+## `Frontend`
+- [x] Structure with Vite
+- [x] Setup Redux Store and Query
+- [x] Landing Page
+- [x] Authentication forms
+- [x] Create, update spots forms
+- [x] Protected routes
+- [x] Responsive website
