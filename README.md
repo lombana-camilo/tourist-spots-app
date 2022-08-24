@@ -1,5 +1,8 @@
 # Fullstack Project - Tourist Spots App
 
+[Website Deploy](http://tourist-spots-app.vercel.app/) , 
+[Video Demo](https://www.youtube.com/watch?v=O2hjUh9FRQ0&list=PL4tavnMx4bcumuzK0ToPrLKxWA30wTD86&index=1&ab_channel=CamiloLombana)
+
 ## Main Objective
 Create a fullstack web application with authentication that enables the users to create, modify and delete their own tourist spots. Besides, all posts are displayed in a map where users can see details and leave reviews
 
