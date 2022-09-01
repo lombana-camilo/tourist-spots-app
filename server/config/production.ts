@@ -11,7 +11,7 @@ const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 export default {
   dbUri,
   domain: ".vercel.app",
-  port: process.env.PORT,
+  port: process.env?.PORT || 4000,
   API_KEY,
   API_HOST,
   // cors
