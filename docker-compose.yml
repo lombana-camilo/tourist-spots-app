@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  api:
+    build: ./server
+    container_name: /api_c
+    ports:
+      - "4000:4000"
+    volumes:
+      - './server:/api'
+      - '/api/node_modules'
+  client:
+    build: ./client
+    container_name: /client_c
+    ports:
+      - "5173:5173"
+    volumes:
+      - './client:/client'
+      - '/client/node_modules'
+    stdin_open: true
+    tty: true
