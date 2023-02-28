@@ -7,7 +7,6 @@ const db_url = config.get<string>("DB_URL")
 async function connect() {
   try {
     const db = await mongoose.connect(db_url || dbUri);
-      // console.log(db.connections)
     console.log("Connected to DB");
   } catch (e) {
     console.log(e);

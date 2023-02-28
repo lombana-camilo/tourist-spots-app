@@ -1,4 +1,5 @@
 "use strict";
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const { DB_NAME, DB_HOST, API_KEY, API_HOST, PRIVATE_KEY } = process.env;
@@ -8,7 +9,7 @@ const dbUri = `mongodb://${DB_HOST}/${DB_NAME}`;
 exports.default = {
     dbUri,
     domain: ".vercel.app",
-    port: process.env.PORT,
+    port: ((_a = process.env) === null || _a === void 0 ? void 0 : _a.PORT) || 4000,
     API_KEY,
     API_HOST,
     originUrl: `https://tourist-spots-app.vercel.app`,

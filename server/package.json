@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development ts-node-dev --respawn src/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev --poll --respawn src/index.ts",
     "start": "NODE_ENV=production nodemon -L ./build/src/index.js",
     "seed": "ts-node-dev --respawn src/seeds/index.ts",
     "build": "rm -rf ./build && tsc"
